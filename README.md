@@ -106,6 +106,26 @@ Built on Tue_May__3_19:00:59_Pacific_Daylight_Time_2022
 Cuda compilation tools, release 11.7, V11.7.64
 Build cuda_11.7.r11.7/compiler.31294372_0
 
+----
+Ok, later found that we also need cuDNN isntallation.
+
+According to this link
+https://developer.nvidia.com/rdp/cudnn-archive
+
+We have to intall cuDNN version 8.1.0.
+
+Command for that:
+
+conda install -c conda-forge cudnn=8.1.0
+
+It will ask for a confirmation, say Yes[Press Y].
+
+Once done with installation, verify using this:
+(mlagents) (venv) C:\ExpML\ML_Agents_Examples\venv\Scripts>conda list cudnn
+ packages in environment at C:\Users\kisho\anaconda3\envs\mlagents:
+
+Name                    Version                   Build  Channel
+cudnn                     8.1.0.77             h3e0f4f4_0    conda-forge
 
 ### Installing ML Agents [FAILED]:
 
