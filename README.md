@@ -1,5 +1,14 @@
 # ML_Agents_Examples
 
+A blank project was created using Unity 2020.3.29f1. You can create the project using any latest LTS Unity version.
+
+
+##################
+
+Step 1
+
+##################
+
 ###  Installation versions:
 
 C:\ExpML\ML_Agents_Examples>cd venv
@@ -251,3 +260,26 @@ https://github.com/Unity-Technologies/ml-agents/blob/develop/docs/Learning-Envir
 Installation for Windows:
 
 https://github.com/Unity-Technologies/ml-agents/blob/release-21-branch/docs/Installation-Anaconda-Windows.md
+
+
+
+
+##################
+
+Step 2
+
+##################
+
+
+Open Unity project.
+
+I it would be nice to isnallNow we need to install the exact assoc
+
+navigating to the menu Window -> Package Manager.
+In the package manager window click on the + button on the top left of the packages list.
+Select Add package from disk...
+Navigate into the com.unity.ml-agents folder. [The one present in the cloned repository.]
+Select the package.json file.
+
+
+^ This fails for now!! :(
