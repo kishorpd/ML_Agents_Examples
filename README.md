@@ -273,7 +273,7 @@ Step 2
 
 Open Unity project.
 
-I it would be nice to isnallNow we need to install the exact assoc
+Since we are just following the release 21 branch, let us install hte related ML-Agents package.
 
 navigating to the menu Window -> Package Manager.
 In the package manager window click on the + button on the top left of the packages list.
@@ -281,5 +281,4 @@ Select Add package from disk...
 Navigate into the com.unity.ml-agents folder. [The one present in the cloned repository.]
 Select the package.json file.
 
-
-^ This fails for now!! :(
+If you are getting errors, please make sure that you undo all the local changes in your release 21 branch.
