@@ -288,7 +288,7 @@ If you are getting errors, please make sure that you undo all the local changes 
 ==============
 
 
-Add these to the manifest.json[Note ML Agents address needs to be your local address]:
+Add these to the "Packages -> manifest.json"[Note ML Agents address needs to be your local address]:
 
 {
   "dependencies": {
