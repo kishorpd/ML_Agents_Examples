@@ -9,4 +9,3 @@ default = mlagents.plugins.stats_writer:get_default_stats_writers
 
 [mlagents.trainer_type]
 default = mlagents.plugins.trainer_type:get_default_trainer_types
-
