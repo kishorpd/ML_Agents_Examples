@@ -1,1 +1,0 @@
-cd C:\ExpML\ML_Agents_Examples\venv\Scripts\ && call activate.bat

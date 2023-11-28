@@ -1,1 +1,0 @@
-%windir%\System32\cmd.exe /K "C:\Users\kisho\anaconda3\Scripts\activate.bat && call SupportingFiles\CondaActivateMLAgents.bat && call SupportingFiles\activateVENV.bat && call mlagents-learn"
