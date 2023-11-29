@@ -112,7 +112,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ml-agents": {
-      "version": "file:C:/ExpML/ml-agents-r21/com.unity.ml-agents",
+      "version": "file:../MLAgentsPackage/com.unity.ml-agents",
       "depth": 0,
       "source": "local",
       "dependencies": {
@@ -123,7 +123,7 @@
       }
     },
     "com.unity.ml-agents.extensions": {
-      "version": "file:C:/ExpML/ml-agents-r21/com.unity.ml-agents.extensions",
+      "version": "file:../MLAgentsPackage/com.unity.ml-agents.extensions",
       "depth": 0,
       "source": "local",
       "dependencies": {
