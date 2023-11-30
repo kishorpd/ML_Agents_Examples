@@ -18,36 +18,45 @@ public class GoalAgent3DForce : Agent
     
     
     public float forceMagnitude = 10f;
-    public ParticleSystem particleS;
-
+    public GameObject rootX;
+    public GameObject rootZ;
     private Rigidbody rb;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         
-        //Lets continue tomorrow
     }
     
     float forceX;
     float forceZ;
+    public float debugForceMultiplier = 3;
 
     void FixedUpdate()
+    {
+        //KeyBased();
+        ForceApplication();
+    }
+    
+    void KeyBased()
     {
         forceX = Input.GetAxis("Horizontal");
         forceZ = Input.GetAxis("Vertical");
         
-        Debug.LogError("X : " + forceX);
-        Debug.LogError("Y : " + forceZ);
+        ForceApplication();
+    }
+
+    void ForceApplication()
+    {
+        //Debug.LogError("X : " + forceX);
+        //Debug.LogError("Y : " + forceZ);
         Vector3 force = new Vector3(forceX, 0f, forceZ).normalized * forceMagnitude;
         rb.AddForce(force, ForceMode.Impulse);
 
-        ParticleSystem.ForceOverLifetimeModule forceOverLifetime = particleS.forceOverLifetime;
-        forceOverLifetime.x = force.x;
-        forceOverLifetime.z = force.z;
+        rootX.transform.localScale = new Vector3(1,forceX,1);
+        rootZ.transform.localScale = new Vector3(1,forceZ,1);
 
     }
-    
 
     public override void OnEpisodeBegin()
     {
@@ -67,25 +76,21 @@ public class GoalAgent3DForce : Agent
         continuousActions[0] = Input.GetAxis("Horizontal");
         continuousActions[1] = Input.GetAxis("Vertical");
         
-        Debug.LogError("X : " + continuousActions[0]) ;
-        Debug.LogError("Y : " + continuousActions[1]) ;
+//        Debug.LogError("X : " + continuousActions[0]) ;
+  //      Debug.LogError("Y : " + continuousActions[1]) ;
+        
     }
 
     public override void OnActionReceived(ActionBuffers actions)
     {
         
-        Debug.LogError("X : " + actions.ContinuousActions[0]) ;
-        Debug.LogError("Y : " + actions.ContinuousActions[1]) ;
+//        Debug.LogError("X : " + actions.ContinuousActions[0]) ;
+  //      Debug.LogError("Y : " + actions.ContinuousActions[1]) ;
 
-        forceX = 1;// actions.ContinuousActions[0];
-        forceZ = 1;//actions.ContinuousActions[1];
+        forceX = actions.ContinuousActions[0];
+        forceZ = actions.ContinuousActions[1];
         
-        Vector3 force = new Vector3(forceX, 0f, forceZ).normalized * forceMagnitude;
-        rb.AddForce(force, ForceMode.Impulse);
-
-        ParticleSystem.ForceOverLifetimeModule forceOverLifetime = particleS.forceOverLifetime;
-        forceOverLifetime.x = force.x;
-        forceOverLifetime.z = force.z;
+      //  ForceApplication();
     }
 
     private void OnTriggerEnter(Collider other)
