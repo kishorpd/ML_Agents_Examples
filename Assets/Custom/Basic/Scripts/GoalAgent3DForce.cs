@@ -5,6 +5,7 @@ using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GoalAgent3DForce : Agent
 {
@@ -60,10 +61,7 @@ public class GoalAgent3DForce : Agent
 
     public override void OnEpisodeBegin()
     {
-        transform.localPosition = Vector3.zero;
-        
-        rb.velocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
+        ResetScene();
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -96,25 +94,39 @@ public class GoalAgent3DForce : Agent
       //  ForceApplication();
     }
 
+    private void ResetScene()
+    {
+        transform.localPosition = Vector3.zero;
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        ChangeBallPosition();
+    }
+
+    void ChangeBallPosition()
+    {
+        Vector2 center = new Vector2(0, 0); // Center of the circle
+        float innerRadius = 1.0f; // Inner radius of the circle
+        float outerRadius = 2.0f; // Outer radius of the circle
+
+        Vector2 newPosition = Random.insideUnitCircle.normalized * Random.Range(innerRadius, outerRadius);
+        targetTransform.localPosition  = new Vector3(newPosition.x,0,newPosition.y);
+    }
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent<Goal>(out Goal goal))
         {
             SetReward(1f);
             FloorMeshRenderer.material = winMaterial;
-            
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
             EndEpisode();
+            ResetScene();
         }
         if (other.TryGetComponent<Wall>(out Wall wall))
         {
             SetReward(-1f);
             FloorMeshRenderer.material = loseMaterial;
-            
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
             EndEpisode();
+            ResetScene();
         }
         
         
