@@ -25,7 +25,7 @@ public class GoalAgent3DForce : Agent
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        
+
     }
     
     float forceX;
@@ -61,6 +61,9 @@ public class GoalAgent3DForce : Agent
     public override void OnEpisodeBegin()
     {
         transform.localPosition = Vector3.zero;
+        
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -99,12 +102,18 @@ public class GoalAgent3DForce : Agent
         {
             SetReward(1f);
             FloorMeshRenderer.material = winMaterial;
+            
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
             EndEpisode();
         }
         if (other.TryGetComponent<Wall>(out Wall wall))
         {
             SetReward(-1f);
             FloorMeshRenderer.material = loseMaterial;
+            
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
             EndEpisode();
         }
         
