@@ -32,6 +32,7 @@ Transform:
   m_LocalScale: {x: 16.970455, y: 0.84852326, z: 6.270299}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3694056334904615717}
   - {fileID: 2792802447605154224}
   - {fileID: 2043478100736423303}
   m_Father: {fileID: 7854316760197926078}
@@ -642,6 +643,38 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &2852008993884704062
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3694056334904615717}
+  m_Layer: 0
+  m_Name: Fuel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3694056334904615717
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2852008993884704062}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.130847, z: 0}
+  m_LocalScale: {x: 0.010488227, y: 0.20976444, z: 0.028386207}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4039792261974278233}
+  m_Father: {fileID: 5721927783170018934}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3352318105595554463
 GameObject:
   m_ObjectHideFlags: 0
@@ -974,9 +1007,9 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: f705de8ffaa845b499de66c9e3020b15, type: 3}
+  m_Model: {fileID: 0}
   m_InferenceDevice: 0
-  m_BehaviorType: 2
+  m_BehaviorType: 0
   m_BehaviorName: BasicMoveForce
   TeamId: 0
   m_UseChildSensors: 1
@@ -1003,10 +1036,14 @@ MonoBehaviour:
   winMaterial: {fileID: 2100000, guid: e7b2ba5733631354da52b105583d1cb7, type: 2}
   loseMaterial: {fileID: 2100000, guid: 57c6ad7a7a8820a4fb97712c41f68ef4, type: 2}
   FloorMeshRenderer: {fileID: 5041251656717195256}
-  forceMagnitude: 1
+  forceMagnitude: 0.3
   rootX: {fileID: 5486969926594314655}
   rootZ: {fileID: 6944760754600791071}
+  FuelIndicator: {fileID: 6322197493777627644}
+  DefaultFuelSize: 100
+  DefaultConsumptionRate: 0.4
   debugForceMultiplier: 3
+  FuelRemaining: 100
 --- !u!114 &7369774074432122781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1198,6 +1235,89 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &6322197493777627644
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4039792261974278233}
+  - component: {fileID: 2737427574934725562}
+  - component: {fileID: 266627314978624390}
+  m_Layer: 0
+  m_Name: FuelIndicator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4039792261974278233
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6322197493777627644}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -3.3, z: -18.2}
+  m_LocalScale: {x: 100, y: 1.4784737, z: 2.0120733}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3694056334904615717}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &2737427574934725562
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6322197493777627644}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &266627314978624390
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6322197493777627644}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -1967,7 +2087,7 @@ Transform:
   m_GameObject: {fileID: 8934925183143129426}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.33, y: 0, z: -2.42}
+  m_LocalPosition: {x: 0, y: 0, z: -2.42}
   m_LocalScale: {x: 0.33047813, y: 0.33047813, z: 0.33047813}
   m_ConstrainProportionsScale: 0
   m_Children: []
