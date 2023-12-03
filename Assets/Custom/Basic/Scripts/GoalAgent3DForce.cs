@@ -22,6 +22,9 @@ public class GoalAgent3DForce : Agent
     public GameObject rootX;
     public GameObject rootZ;
     private Rigidbody rb;
+    public GameObject FuelIndicator;
+    public float DefaultFuelSize = 100;
+    public float DefaultConsumptionRate = 0.4f;
 
     void Start()
     {
@@ -55,8 +58,23 @@ public class GoalAgent3DForce : Agent
         rb.AddForce(force, ForceMode.Impulse);
 
         rootX.transform.localScale = new Vector3(1,forceX,1);
-        rootZ.transform.localScale = new Vector3(1,forceZ,1);
+        rootZ.transform.localScale = new Vector3(1,-forceZ,1);
+        FuelCalculations();
 
+    }
+
+    void FuelCalculations()
+    {
+        FuelRemaining -= DefaultConsumptionRate;
+        if (FuelRemaining <= 0)
+        {
+            Penalize();
+        }
+
+        if (FuelIndicator)
+        {
+            FuelIndicator.transform.localScale = new Vector3(FuelRemaining, 1.5f, 2);
+        }
     }
 
     public override void OnEpisodeBegin()
@@ -64,10 +82,13 @@ public class GoalAgent3DForce : Agent
         ResetScene();
     }
 
+    public float FuelRemaining = 100;
     public override void CollectObservations(VectorSensor sensor)
     {
         sensor.AddObservation(transform.localPosition);
         sensor.AddObservation(targetTransform.localPosition);
+        sensor.AddObservation(Vector3.Distance(transform.localPosition,targetTransform.localPosition));
+        sensor.AddObservation(FuelRemaining);
     }
 
 
@@ -96,39 +117,51 @@ public class GoalAgent3DForce : Agent
 
     private void ResetScene()
     {
+        FuelRemaining = DefaultFuelSize;
         transform.localPosition = Vector3.zero;
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
-        ChangeBallPosition();
+        ChangeRewardPosition();
     }
 
-    void ChangeBallPosition()
+    void ChangeRewardPosition()
     {
+        //TODO : Add or subtract an offset.
         Vector2 center = new Vector2(0, 0); // Center of the circle
         float innerRadius = 1.0f; // Inner radius of the circle
         float outerRadius = 2.0f; // Outer radius of the circle
+        float maxDist = 5.0f;
 
         Vector2 newPosition = Random.insideUnitCircle.normalized * Random.Range(innerRadius, outerRadius);
-        targetTransform.localPosition  = new Vector3(newPosition.x,0,newPosition.y);
+        targetTransform.localPosition  = new Vector3(newPosition.x + Random.Range(2,maxDist),0,newPosition.y);
+        //targetTransform.localPosition  = new Vector3(newPosition.x + Random.Range(-maxDist,maxDist),0,newPosition.y);
     }
     
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent<Goal>(out Goal goal))
         {
-            SetReward(1f);
-            FloorMeshRenderer.material = winMaterial;
-            EndEpisode();
-            ResetScene();
+            GiveRewards();
         }
         if (other.TryGetComponent<Wall>(out Wall wall))
         {
-            SetReward(-1f);
-            FloorMeshRenderer.material = loseMaterial;
-            EndEpisode();
-            ResetScene();
+            Penalize();
         }
-        
-        
+    }
+
+    void Penalize(float penalty = -1f)
+    {
+        SetReward(penalty);
+        FloorMeshRenderer.material = loseMaterial;
+        EndEpisode();
+        ResetScene();
+    }
+
+    void GiveRewards(float reward = 1f)
+    {
+        SetReward(1f);
+        FloorMeshRenderer.material = winMaterial;
+        EndEpisode();
+        ResetScene();
     }
 }
