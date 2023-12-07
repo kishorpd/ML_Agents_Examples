@@ -1008,9 +1008,9 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: 814e01993b9e6f94e8c0b2eef817ec1d, type: 3}
   m_InferenceDevice: 0
-  m_BehaviorType: 0
+  m_BehaviorType: 2
   m_BehaviorName: BasicMoveForce
   TeamId: 0
   m_UseChildSensors: 1
@@ -1037,12 +1037,13 @@ MonoBehaviour:
   winMaterial: {fileID: 2100000, guid: e7b2ba5733631354da52b105583d1cb7, type: 2}
   loseMaterial: {fileID: 2100000, guid: 57c6ad7a7a8820a4fb97712c41f68ef4, type: 2}
   FloorMeshRenderer: {fileID: 5041251656717195256}
-  forceMagnitude: 0.3
+  CurrentPhase: 0
+  forceMagnitude: 0.1
   rootX: {fileID: 5486969926594314655}
   rootZ: {fileID: 6944760754600791071}
   FuelIndicator: {fileID: 6322197493777627644}
   DefaultFuelSize: 100
-  DefaultConsumptionRate: 0.4
+  DefaultConsumptionRate: 0.2
   debugForceMultiplier: 3
   FuelRemaining: 100
 --- !u!114 &7369774074432122781

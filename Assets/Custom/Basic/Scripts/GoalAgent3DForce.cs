@@ -16,7 +16,14 @@ public class GoalAgent3DForce : Agent
     [SerializeField] private Material loseMaterial;
     [SerializeField] private MeshRenderer FloorMeshRenderer;
     
-    
+    public enum Phases
+    {
+        StraightLine,
+        StraightLineLittleRandom,
+        StraightLineMoreRandom
+    }
+
+    public Phases CurrentPhase = Phases.StraightLine;
     
     public float forceMagnitude = 10f;
     public GameObject rootX;
@@ -121,20 +128,45 @@ public class GoalAgent3DForce : Agent
         transform.localPosition = Vector3.zero;
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
-       // ChangeRewardPosition();
     }
 
+    private int DefaultUpgradeCutoff = 10;
+    private int UpgradeCount = 0;
+    
+    
     void ChangeRewardPosition()
     {
-        //TODO : Add or subtract an offset.
-        Vector2 center = new Vector2(0, 0); // Center of the circle
-        float innerRadius = 1.0f; // Inner radius of the circle
-        float outerRadius = 2.0f; // Outer radius of the circle
-        float maxDist = 9.0f;
+        switch (CurrentPhase)
+        {
+            case Phases.StraightLine:
+                    targetTransform.localPosition = new Vector3(targetTransform.localPosition.x + 0.1f, 0, 0);
+                break;
+            case Phases.StraightLineLittleRandom:
+                    targetTransform.localPosition = new Vector3(targetTransform.localPosition.x + 0.1f, 0, Random.Range(-1,1));
+                break;
+            case Phases.StraightLineMoreRandom:
+                    targetTransform.localPosition = new Vector3(targetTransform.localPosition.x + 0.1f, 0, Random.Range(-2,2));
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
 
-        Vector2 newPosition = Random.insideUnitCircle.normalized * Random.Range(innerRadius, outerRadius);
-        targetTransform.localPosition  = new Vector3(newPosition.x + Random.Range(2,maxDist),0,newPosition.y);
-        //targetTransform.localPosition  = new Vector3(newPosition.x + Random.Range(-maxDist,maxDist),0,newPosition.y);
+        if (targetTransform.localPosition.x >= 12)
+        {
+            targetTransform.localPosition  = new Vector3(2,0,0);
+
+            if (CurrentPhase != Phases.StraightLineMoreRandom)
+            {
+                UpgradeCount++;
+                if (UpgradeCount == DefaultUpgradeCutoff)
+                {
+                    if (CurrentPhase == Phases.StraightLine) CurrentPhase = Phases.StraightLineLittleRandom;
+                    if (CurrentPhase == Phases.StraightLineLittleRandom) CurrentPhase = Phases.StraightLineMoreRandom;
+                }
+            }
+
+        }
+        
     }
     
     private void OnTriggerEnter(Collider other)
@@ -161,10 +193,10 @@ public class GoalAgent3DForce : Agent
     {
         SetReward(1f);
         FloorMeshRenderer.material = winMaterial;
-        targetTransform.localPosition  = new Vector3(targetTransform.localPosition.x+0.1f,0,Random.Range(-2,2));
-        //targetTransform.localPosition  = new Vector3(12,0,0);
-        if(targetTransform.localPosition.x >=12)  
-            targetTransform.localPosition  = new Vector3(2,0,0);
+        
+        //Change position only when it succeeds
+        ChangeRewardPosition();
+
         EndEpisode();
         ResetScene();
     }
