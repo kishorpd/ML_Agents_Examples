@@ -5,6 +5,7 @@ using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
+using UnityEngine.Android;
 using Random = UnityEngine.Random;
 
 public class GoalAgent3DForce : Agent
@@ -33,10 +34,16 @@ public class GoalAgent3DForce : Agent
     public float DefaultFuelSize = 100;
     public float DefaultConsumptionRate = 0.4f;
 
+
+    public ParticleSystem posBoosterX;
+    public ParticleSystem negBoosterX;
+    public ParticleSystem posBoosterZ;
+    public ParticleSystem negBoosterZ;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-
+        InitBoosters();
     }
     
     float forceX;
@@ -67,6 +74,23 @@ public class GoalAgent3DForce : Agent
         rootX.transform.localScale = new Vector3(1,forceX,1);
         rootZ.transform.localScale = new Vector3(1,-forceZ,1);
         FuelCalculations();
+        UpdateBoosters();
+    }
+
+    void UpdateBoosters()
+    {
+        UpdateBooster(forceX, posBoosterX);
+        UpdateBooster(-forceX, negBoosterX);
+        UpdateBooster(forceZ, posBoosterZ);
+        UpdateBooster(-forceZ, negBoosterZ);
+    }
+
+    void InitBoosters()
+    {
+        posBoosterX.Play();
+        negBoosterX.Play();
+        posBoosterZ.Play();
+        negBoosterZ.Play();
 
     }
 
@@ -104,10 +128,30 @@ public class GoalAgent3DForce : Agent
         ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
         continuousActions[0] = Input.GetAxis("Horizontal");
         continuousActions[1] = Input.GetAxis("Vertical");
-        
+
+        UpdateBoosters();
+
+
 //        Debug.LogError("X : " + continuousActions[0]) ;
-  //      Debug.LogError("Y : " + continuousActions[1]) ;
-        
+//      Debug.LogError("Y : " + continuousActions[1]) ;
+
+    }
+
+    public int EmmisionRateForParticles = 80;
+
+    public void UpdateBooster(float boost, ParticleSystem boosterSys)
+    {
+        if(boost > 0)
+        {
+            boosterSys.Play();
+            var emmision = boosterSys.emission;
+            emmision.rateOverTime = boost * EmmisionRateForParticles;
+        }
+        else
+        {
+            boosterSys.Stop();
+        }
+
     }
 
     public override void OnActionReceived(ActionBuffers actions)
