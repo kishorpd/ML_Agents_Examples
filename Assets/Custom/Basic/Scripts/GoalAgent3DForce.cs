@@ -66,23 +66,30 @@ public class GoalAgent3DForce : Agent
 
     void ForceApplication()
     {
-        //Debug.LogError("X : " + forceX);
-        //Debug.LogError("Y : " + forceZ);
-        Vector3 force = new Vector3(forceX, 0f, forceZ).normalized * forceMagnitude;
-        rb.AddForce(force, ForceMode.Impulse);
+        rb.AddForce(CalculateForce(135, forceX*forceMagnitude), ForceMode.Impulse);
+        rb.AddForce(CalculateForce(45, forceZ*forceMagnitude), ForceMode.Impulse);
 
-        rootX.transform.localScale = new Vector3(1,forceX,1);
+        rootX.transform.localScale = new Vector3(1,-forceX,1);
         rootZ.transform.localScale = new Vector3(1,-forceZ,1);
         FuelCalculations();
         UpdateBoosters();
+    }
+
+    Vector3 CalculateForce(float angle,float fMagnitude)
+    {
+        
+        float xComponent = Mathf.Cos(angle * Mathf.Deg2Rad) * fMagnitude;
+        float zComponent = Mathf.Sin(angle * Mathf.Deg2Rad) * fMagnitude;
+        return new Vector3(xComponent, 0f, zComponent);
+
     }
 
     void UpdateBoosters()
     {
         UpdateBooster(forceX, posBoosterX);
         UpdateBooster(-forceX, negBoosterX);
-        UpdateBooster(forceZ, posBoosterZ);
-        UpdateBooster(-forceZ, negBoosterZ);
+        UpdateBooster(-forceZ, posBoosterZ);
+        UpdateBooster(forceZ, negBoosterZ);
     }
 
     void InitBoosters()
@@ -129,7 +136,7 @@ public class GoalAgent3DForce : Agent
         continuousActions[0] = Input.GetAxis("Horizontal");
         continuousActions[1] = Input.GetAxis("Vertical");
 
-        UpdateBoosters();
+        //UpdateBoosters();
 
 
 //        Debug.LogError("X : " + continuousActions[0]) ;
@@ -195,7 +202,8 @@ public class GoalAgent3DForce : Agent
                 throw new ArgumentOutOfRangeException();
         }
 
-        if (targetTransform.localPosition.x >= 12)
+        
+        if (targetTransform.localPosition.x >= 8)
         {
             targetTransform.localPosition  = new Vector3(2,0,0);
 
