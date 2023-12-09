@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
@@ -86,10 +87,10 @@ public class GoalAgent3DForce : Agent
 
     void UpdateBoosters()
     {
-        UpdateBooster(forceX, posBoosterX);
-        UpdateBooster(-forceX, negBoosterX);
-        UpdateBooster(-forceZ, posBoosterZ);
-        UpdateBooster(forceZ, negBoosterZ);
+        UpdateBooster(forceZ, posBoosterZ);
+        UpdateBooster(-forceZ, negBoosterZ);
+        UpdateBooster(-forceX, posBoosterX);
+        UpdateBooster(forceX, negBoosterX);
     }
 
     void InitBoosters()
@@ -181,22 +182,26 @@ public class GoalAgent3DForce : Agent
         rb.angularVelocity = Vector3.zero;
     }
 
+    
     private int DefaultUpgradeCutoff = 10;
     private int UpgradeCount = 0;
     
-    
     void ChangeRewardPosition()
     {
+
+        /*
+        ChangeRewardPositionRadial();
+        */
         switch (CurrentPhase)
         {
             case Phases.StraightLine:
                     targetTransform.localPosition = new Vector3(targetTransform.localPosition.x + 0.1f, 0, 0);
                 break;
             case Phases.StraightLineLittleRandom:
-                    targetTransform.localPosition = new Vector3(targetTransform.localPosition.x + 0.1f, 0, Random.Range(-1,1));
+                    targetTransform.localPosition = new Vector3(targetTransform.localPosition.x + 0.1f, 0, Random.Range(-.5f,.5f));
                 break;
             case Phases.StraightLineMoreRandom:
-                    targetTransform.localPosition = new Vector3(targetTransform.localPosition.x + 0.1f, 0, Random.Range(-2,2));
+                    targetTransform.localPosition = new Vector3(targetTransform.localPosition.x + 0.1f, 0, Random.Range(-.7f,.7f));
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -213,12 +218,29 @@ public class GoalAgent3DForce : Agent
                 if (UpgradeCount == DefaultUpgradeCutoff)
                 {
                     if (CurrentPhase == Phases.StraightLine) CurrentPhase = Phases.StraightLineLittleRandom;
+                    else
                     if (CurrentPhase == Phases.StraightLineLittleRandom) CurrentPhase = Phases.StraightLineMoreRandom;
+                    UpgradeCount = 0;
                 }
             }
 
         }
         
+        //targetTransform.localPosition = new Vector3((math.abs(targetTransform.localPosition.x) + 0.1f)* Random.Range(-2,2), 0, Random.Range(1f,-1f));
+    }
+    
+    void ChangeRewardPositionRadial()
+    {
+        //TODO : Add or subtract an offset.
+        Vector2 center = new Vector2(0, 0); // Center of the circle
+        float innerRadius = 0.5f; // Inner radius of the circle
+        float outerRadius = 1.2f; // Outer radius of the circle
+        //float maxDist = 2.0f;
+
+        Vector2 newPosition = Random.insideUnitCircle.normalized * Random.Range(innerRadius, outerRadius);
+        targetTransform.localPosition  = new Vector3(newPosition.x,0,newPosition.y);
+        //targetTransform.localPosition  = new Vector3(newPosition.x + Random.Range(2,maxDist),0,newPosition.y);
+        //targetTransform.localPosition  = new Vector3(newPosition.x + Random.Range(-maxDist,maxDist),0,newPosition.y);
     }
     
     private void OnTriggerEnter(Collider other)
@@ -250,6 +272,6 @@ public class GoalAgent3DForce : Agent
         ChangeRewardPosition();
 
         EndEpisode();
-        ResetScene();
+      //  ResetScene();
     }
 }

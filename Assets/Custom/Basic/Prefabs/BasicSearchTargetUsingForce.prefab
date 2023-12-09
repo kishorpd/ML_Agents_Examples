@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 338240293285347313}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.28, y: -0.95955, z: 0}
+  m_LocalPosition: {x: 3.4, y: -0.95955, z: 0}
   m_LocalScale: {x: 16.970455, y: 0.84852326, z: 6.270299}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -993,7 +993,7 @@ Transform:
   m_GameObject: {fileID: 4873989639906116837}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0.0240351, y: 0, z: -0.00044932216}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1045,7 +1045,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: 5a4b8d06921e87a4d8d7a236a6091d21, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: BasicMoveForce
@@ -1080,7 +1080,7 @@ MonoBehaviour:
   rootZ: {fileID: 6944760754600791071}
   FuelIndicator: {fileID: 6322197493777627644}
   DefaultFuelSize: 100
-  DefaultConsumptionRate: 0.2
+  DefaultConsumptionRate: 0.05
   posBoosterX: {fileID: 7440148409496260622}
   negBoosterX: {fileID: 1330383565916605038}
   posBoosterZ: {fileID: 5821947694756605106}
@@ -2130,7 +2130,7 @@ Transform:
   m_GameObject: {fileID: 8934925183143129426}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.02, y: 0, z: 0.1}
+  m_LocalPosition: {x: 1.22, y: 0, z: 0.1}
   m_LocalScale: {x: 0.33047813, y: 0.33047813, z: 0.33047813}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2285,11 +2285,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 676028150557829203, guid: f771bc45e13e03a4bab796116f2ddb77, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2550160821480287818, guid: f771bc45e13e03a4bab796116f2ddb77, type: 3}
       propertyPath: m_Name
       value: NegZ
+      objectReference: {fileID: 0}
+    - target: {fileID: 2550160821480287818, guid: f771bc45e13e03a4bab796116f2ddb77, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2372,11 +2376,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 676028150557829203, guid: f771bc45e13e03a4bab796116f2ddb77, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2550160821480287818, guid: f771bc45e13e03a4bab796116f2ddb77, type: 3}
       propertyPath: m_Name
       value: NegX
+      objectReference: {fileID: 0}
+    - target: {fileID: 2550160821480287818, guid: f771bc45e13e03a4bab796116f2ddb77, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2459,11 +2467,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 676028150557829203, guid: f771bc45e13e03a4bab796116f2ddb77, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2550160821480287818, guid: f771bc45e13e03a4bab796116f2ddb77, type: 3}
       propertyPath: m_Name
       value: PosX
+      objectReference: {fileID: 0}
+    - target: {fileID: 2550160821480287818, guid: f771bc45e13e03a4bab796116f2ddb77, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2620,11 +2632,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 676028150557829203, guid: f771bc45e13e03a4bab796116f2ddb77, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2550160821480287818, guid: f771bc45e13e03a4bab796116f2ddb77, type: 3}
       propertyPath: m_Name
       value: PosZ
+      objectReference: {fileID: 0}
+    - target: {fileID: 2550160821480287818, guid: f771bc45e13e03a4bab796116f2ddb77, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
