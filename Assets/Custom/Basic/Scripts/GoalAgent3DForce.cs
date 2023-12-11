@@ -45,6 +45,11 @@ public class GoalAgent3DForce : Agent
     {
         rb = GetComponent<Rigidbody>();
         InitBoosters();
+        
+        
+        targetTransform.localPosition = new Vector3(Random.Range(-rangeH,rangeH), 0, -rangeV);
+        
+   //     ResetScene();
     }
     
     float forceX;
@@ -182,16 +187,19 @@ public class GoalAgent3DForce : Agent
         rb.angularVelocity = Vector3.zero;
     }
 
-    
-    private int DefaultUpgradeCutoff = 10;
-    private int UpgradeCount = 0;
-    
+
+    public float rangeH = 1;
+    public float rangeV = 1;
     void ChangeRewardPosition()
     {
 
         /*
         ChangeRewardPositionRadial();
         */
+        /*
+    private int DefaultUpgradeCutoff = 10;
+    private int UpgradeCount = 0;
+        
         switch (CurrentPhase)
         {
             case Phases.StraightLine:
@@ -225,8 +233,8 @@ public class GoalAgent3DForce : Agent
             }
 
         }
-        
-        //targetTransform.localPosition = new Vector3((math.abs(targetTransform.localPosition.x) + 0.1f)* Random.Range(-2,2), 0, Random.Range(1f,-1f));
+        */
+        targetTransform.localPosition = new Vector3(Random.Range(-1,1), 0, -3);
     }
     
     void ChangeRewardPositionRadial()
