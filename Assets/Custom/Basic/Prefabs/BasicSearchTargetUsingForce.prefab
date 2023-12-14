@@ -1048,7 +1048,7 @@ MonoBehaviour:
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 5022602860645237092, guid: e735fa4a4025b9041a0fb48fe942b180, type: 3}
   m_InferenceDevice: 0
-  m_BehaviorType: 1
+  m_BehaviorType: 0
   m_BehaviorName: BasicMoveForce
   TeamId: 0
   m_UseChildSensors: 1
@@ -1145,10 +1145,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2902496c0120472b90269f94a0aec7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Record: 1
+  Record: 0
   NumStepsToRecord: 0
   DemonstrationName: SpaceShip1
-  DemonstrationDirectory: Demos
+  DemonstrationDirectory: Assets\Custom\Basic\Config\Demos
 --- !u!1 &5486969926594314655
 GameObject:
   m_ObjectHideFlags: 0
