@@ -131,6 +131,8 @@ public class GoalAgent3DForce : Agent
     {
         sensor.AddObservation(transform.localPosition);
         sensor.AddObservation(targetTransform.localPosition);
+        var direction = (transform.localPosition - targetTransform.localPosition).normalized;
+        sensor.AddObservation(direction);
         sensor.AddObservation(Vector3.Distance(transform.localPosition,targetTransform.localPosition));
         sensor.AddObservation(FuelRemaining);
     }
@@ -234,7 +236,7 @@ public class GoalAgent3DForce : Agent
 
         }
         */
-        targetTransform.localPosition = new Vector3(Random.Range(-1,1), 0, -3);
+        targetTransform.localPosition = new Vector3(Random.Range(-4,4), 0, Random.Range(-4,0));
     }
     
     void ChangeRewardPositionRadial()

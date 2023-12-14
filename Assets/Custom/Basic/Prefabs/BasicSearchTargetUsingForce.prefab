@@ -977,6 +977,7 @@ GameObject:
   - component: {fileID: 8650941114927487523}
   - component: {fileID: 7369774074432122781}
   - component: {fileID: 6873850504221165904}
+  - component: {fileID: 4946149714078291821}
   m_Layer: 0
   m_Name: BasicAgent
   m_TagString: Untagged
@@ -1047,7 +1048,7 @@ MonoBehaviour:
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 5022602860645237092, guid: e735fa4a4025b9041a0fb48fe942b180, type: 3}
   m_InferenceDevice: 0
-  m_BehaviorType: 0
+  m_BehaviorType: 1
   m_BehaviorName: BasicMoveForce
   TeamId: 0
   m_UseChildSensors: 1
@@ -1132,6 +1133,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4946149714078291821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4873989639906116837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2902496c0120472b90269f94a0aec7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Record: 1
+  NumStepsToRecord: 0
+  DemonstrationName: SpaceShip1
+  DemonstrationDirectory: Demos
 --- !u!1 &5486969926594314655
 GameObject:
   m_ObjectHideFlags: 0
