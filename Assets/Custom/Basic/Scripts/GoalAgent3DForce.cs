@@ -141,7 +141,7 @@ public class GoalAgent3DForce : Agent
     public override void Heuristic(in ActionBuffers actionsOut)
     {
         ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
-        continuousActions[0] = Input.GetAxis("Horizontal");
+        continuousActions[0] = -Input.GetAxis("Horizontal");
         continuousActions[1] = Input.GetAxis("Vertical");
 
         //UpdateBoosters();
