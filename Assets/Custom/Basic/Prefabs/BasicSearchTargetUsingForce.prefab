@@ -978,6 +978,7 @@ GameObject:
   - component: {fileID: 7369774074432122781}
   - component: {fileID: 6873850504221165904}
   - component: {fileID: 4946149714078291821}
+  - component: {fileID: 778666148814838657}
   m_Layer: 0
   m_Name: BasicAgent
   m_TagString: Untagged
@@ -1046,7 +1047,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: e735fa4a4025b9041a0fb48fe942b180, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 6161f3dede0aab64a9ff372b65e3ffb0, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: BasicMoveForce
@@ -1149,6 +1150,20 @@ MonoBehaviour:
   NumStepsToRecord: 0
   DemonstrationName: SpaceShip1
   DemonstrationDirectory: Assets\Custom\Basic\Config\Demos
+--- !u!114 &778666148814838657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4873989639906116837}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29126ff889deb3d4fb60bb5537ffa16b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 8323818080471412660}
+  lerpSpeed: 1
 --- !u!1 &5486969926594314655
 GameObject:
   m_ObjectHideFlags: 0
@@ -2304,7 +2319,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 676028150557829203, guid: f771bc45e13e03a4bab796116f2ddb77, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2550160821480287818, guid: f771bc45e13e03a4bab796116f2ddb77, type: 3}
       propertyPath: m_Name
@@ -2395,7 +2410,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 676028150557829203, guid: f771bc45e13e03a4bab796116f2ddb77, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2550160821480287818, guid: f771bc45e13e03a4bab796116f2ddb77, type: 3}
       propertyPath: m_Name
@@ -2486,7 +2501,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 676028150557829203, guid: f771bc45e13e03a4bab796116f2ddb77, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2550160821480287818, guid: f771bc45e13e03a4bab796116f2ddb77, type: 3}
       propertyPath: m_Name
@@ -2651,7 +2666,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 676028150557829203, guid: f771bc45e13e03a4bab796116f2ddb77, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2550160821480287818, guid: f771bc45e13e03a4bab796116f2ddb77, type: 3}
       propertyPath: m_Name

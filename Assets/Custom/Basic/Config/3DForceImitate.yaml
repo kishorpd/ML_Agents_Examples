@@ -23,10 +23,7 @@ behaviors:
         strength: 1.0
       gail:
         strength: 0.5
-        demo_path: Config/Demos/ExpertBasic.demo
-      behavioral_cloning:
-        strength: 0.5
-        demo_path: Config/Demos/ExpertBasic.demo
+        demo_path: Config/Demos/SpaceShip1.demo
     max_steps: 500000
     time_horizon: 64
     summary_freq: 10000

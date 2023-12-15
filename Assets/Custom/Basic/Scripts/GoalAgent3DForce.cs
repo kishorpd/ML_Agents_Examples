@@ -175,7 +175,7 @@ public class GoalAgent3DForce : Agent
 //        Debug.LogError("X : " + actions.ContinuousActions[0]) ;
   //      Debug.LogError("Y : " + actions.ContinuousActions[1]) ;
 
-        forceX = actions.ContinuousActions[0];
+        forceX = -actions.ContinuousActions[0];
         forceZ = actions.ContinuousActions[1];
         
       //  ForceApplication();
