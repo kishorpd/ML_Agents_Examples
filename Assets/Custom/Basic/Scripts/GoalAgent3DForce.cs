@@ -129,12 +129,13 @@ public class GoalAgent3DForce : Agent
     public float FuelRemaining = 100;
     public override void CollectObservations(VectorSensor sensor)
     {
-        sensor.AddObservation(transform.localPosition);
-        sensor.AddObservation(targetTransform.localPosition);
+        sensor.AddObservation(transform.localPosition);//3
+        sensor.AddObservation(targetTransform.localPosition);//3
         var direction = (transform.localPosition - targetTransform.localPosition).normalized;
-        sensor.AddObservation(direction);
-        sensor.AddObservation(Vector3.Distance(transform.localPosition,targetTransform.localPosition));
-        sensor.AddObservation(FuelRemaining);
+        sensor.AddObservation(direction);//3
+        sensor.AddObservation(Vector3.Distance(transform.localPosition,targetTransform.localPosition));//3
+        sensor.AddObservation(FuelRemaining);//1
+        //Total : 13
     }
 
 
