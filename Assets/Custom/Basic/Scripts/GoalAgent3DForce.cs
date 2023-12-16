@@ -237,7 +237,7 @@ public class GoalAgent3DForce : Agent
 
         }
         */
-        targetTransform.localPosition = new Vector3(Random.Range(-4,4), 0, Random.Range(-4,0));
+        targetTransform.localPosition = new Vector3(Random.Range(-4,4), 0, Random.Range(-5,-2.5f));
     }
     
     void ChangeRewardPositionRadial()
