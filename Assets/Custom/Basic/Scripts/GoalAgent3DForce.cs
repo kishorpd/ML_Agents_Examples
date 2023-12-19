@@ -123,7 +123,9 @@ public class GoalAgent3DForce : Agent
 
     public override void OnEpisodeBegin()
     {
-        ResetScene();
+        //   ResetScene();
+
+        ResetTimer(); ;
     }
 
     public float FuelRemaining = 100;
@@ -182,9 +184,14 @@ public class GoalAgent3DForce : Agent
       //  ForceApplication();
     }
 
-    private void ResetScene()
+    void ResetTimer()
     {
         FuelRemaining = DefaultFuelSize;
+    }
+
+    private void ResetScene()
+    {
+        ResetTimer();
         transform.localPosition = Vector3.zero;
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
@@ -237,7 +244,7 @@ public class GoalAgent3DForce : Agent
 
         }
         */
-        targetTransform.localPosition = new Vector3(Random.Range(-4,4), 0, Random.Range(-5,-2.5f));
+        targetTransform.localPosition = new Vector3(Random.Range(-7,7), 0, Random.Range(-5,2f));
     }
     
     void ChangeRewardPositionRadial()
@@ -264,6 +271,11 @@ public class GoalAgent3DForce : Agent
         {
             Penalize();
         }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        OnTriggerEnter(other);
     }
 
     void Penalize(float penalty = -1f)
