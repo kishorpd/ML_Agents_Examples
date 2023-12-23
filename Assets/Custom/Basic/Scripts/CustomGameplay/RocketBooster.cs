@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class RocketBooster : MonoBehaviour
 {
@@ -13,11 +14,20 @@ public class RocketBooster : MonoBehaviour
         targetRigidbody = GetComponent<Rigidbody>();
     }
 
+
+    public bool isUp = true;
+    bool bInput = false;
+
+    private void Update()
+    {
+        bInput = (Input.GetKey(isUp ? KeyCode.RightArrow : KeyCode.LeftArrow));
+    }
+
     private void FixedUpdate()
     {
-     //   if(referencePoint != null) { AddTorqueToRotate(); }
-   //     else
+        if(bInput)
         {
+            Debug.LogError("Dumbo");
             // Calculate the booster's forward direction
             Vector3 boosterForward = transform.up;
 
