@@ -18,15 +18,6 @@ public class GoalAgent3DForce : Agent
     [SerializeField] private Material loseMaterial;
     [SerializeField] private MeshRenderer FloorMeshRenderer;
     
-    public enum Phases
-    {
-        StraightLine,
-        StraightLineLittleRandom,
-        StraightLineMoreRandom
-    }
-
-    public Phases CurrentPhase = Phases.StraightLine;
-    
     public float forceMagnitude = 10f;
     public GameObject rootX;
     public GameObject rootZ;
@@ -48,8 +39,6 @@ public class GoalAgent3DForce : Agent
         
         
         targetTransform.localPosition = new Vector3(Random.Range(-rangeH,rangeH), 0, -rangeV);
-        
-   //     ResetScene();
     }
     
     float forceX;
@@ -58,7 +47,6 @@ public class GoalAgent3DForce : Agent
 
     void FixedUpdate()
     {
-        //KeyBased();
         ForceApplication();
     }
     
@@ -123,8 +111,6 @@ public class GoalAgent3DForce : Agent
 
     public override void OnEpisodeBegin()
     {
-        //   ResetScene();
-
         ResetTimer(); ;
     }
 
@@ -146,13 +132,6 @@ public class GoalAgent3DForce : Agent
         ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
         continuousActions[0] = -Input.GetAxis("Horizontal");
         continuousActions[1] = Input.GetAxis("Vertical");
-
-        //UpdateBoosters();
-
-
-//        Debug.LogError("X : " + continuousActions[0]) ;
-//      Debug.LogError("Y : " + continuousActions[1]) ;
-
     }
 
     public int EmmisionRateForParticles = 80;
@@ -174,14 +153,8 @@ public class GoalAgent3DForce : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
-        
-//        Debug.LogError("X : " + actions.ContinuousActions[0]) ;
-  //      Debug.LogError("Y : " + actions.ContinuousActions[1]) ;
-
         forceX = -actions.ContinuousActions[0];
         forceZ = actions.ContinuousActions[1];
-        
-      //  ForceApplication();
     }
 
     void ResetTimer()
@@ -203,47 +176,6 @@ public class GoalAgent3DForce : Agent
     void ChangeRewardPosition()
     {
 
-        /*
-        ChangeRewardPositionRadial();
-        */
-        /*
-    private int DefaultUpgradeCutoff = 10;
-    private int UpgradeCount = 0;
-        
-        switch (CurrentPhase)
-        {
-            case Phases.StraightLine:
-                    targetTransform.localPosition = new Vector3(targetTransform.localPosition.x + 0.1f, 0, 0);
-                break;
-            case Phases.StraightLineLittleRandom:
-                    targetTransform.localPosition = new Vector3(targetTransform.localPosition.x + 0.1f, 0, Random.Range(-.5f,.5f));
-                break;
-            case Phases.StraightLineMoreRandom:
-                    targetTransform.localPosition = new Vector3(targetTransform.localPosition.x + 0.1f, 0, Random.Range(-.7f,.7f));
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
-
-        
-        if (targetTransform.localPosition.x >= 8)
-        {
-            targetTransform.localPosition  = new Vector3(2,0,0);
-
-            if (CurrentPhase != Phases.StraightLineMoreRandom)
-            {
-                UpgradeCount++;
-                if (UpgradeCount == DefaultUpgradeCutoff)
-                {
-                    if (CurrentPhase == Phases.StraightLine) CurrentPhase = Phases.StraightLineLittleRandom;
-                    else
-                    if (CurrentPhase == Phases.StraightLineLittleRandom) CurrentPhase = Phases.StraightLineMoreRandom;
-                    UpgradeCount = 0;
-                }
-            }
-
-        }
-        */
         targetTransform.localPosition = new Vector3(Random.Range(-7,7), 0, Random.Range(-5,2f));
     }
     
@@ -253,7 +185,6 @@ public class GoalAgent3DForce : Agent
         Vector2 center = new Vector2(0, 0); // Center of the circle
         float innerRadius = 0.5f; // Inner radius of the circle
         float outerRadius = 1.2f; // Outer radius of the circle
-        //float maxDist = 2.0f;
 
         Vector2 newPosition = Random.insideUnitCircle.normalized * Random.Range(innerRadius, outerRadius);
         targetTransform.localPosition  = new Vector3(newPosition.x,0,newPosition.y);
