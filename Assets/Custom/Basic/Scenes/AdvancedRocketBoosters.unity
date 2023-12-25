@@ -4363,7 +4363,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7490341853241596691, guid: 40f32c3e6f5493041926e31b97a49a6a, type: 3}
       propertyPath: m_Name
-      value: BasicSearchTargetUsingForce
+      value: ForceBased
       objectReference: {fileID: 0}
     - target: {fileID: 7490341853241596691, guid: 40f32c3e6f5493041926e31b97a49a6a, type: 3}
       propertyPath: m_IsActive
