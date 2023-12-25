@@ -20,6 +20,7 @@ public class GoalAgent3DForce : Agent
     
     public float forceMagnitude = 10f;
     public GameObject rootX;
+    public GameObject rootY;
     public GameObject rootZ;
     private Rigidbody rb;
     public GameObject FuelIndicator;
@@ -29,6 +30,10 @@ public class GoalAgent3DForce : Agent
 
     public ParticleSystem posBoosterX;
     public ParticleSystem negBoosterX;
+
+    public ParticleSystem posBoosterY;
+    public ParticleSystem negBoosterY;
+
     public ParticleSystem posBoosterZ;
     public ParticleSystem negBoosterZ;
 
@@ -42,6 +47,7 @@ public class GoalAgent3DForce : Agent
     }
     
     float forceX;
+    float forceY;
     float forceZ;
     public float debugForceMultiplier = 3;
 
@@ -61,10 +67,15 @@ public class GoalAgent3DForce : Agent
     void ForceApplication()
     {
         rb.AddForce(CalculateForce(135, forceX*forceMagnitude), ForceMode.Impulse);
+        rb.AddForce( new Vector3(0, forceY * forceMagnitude,0), ForceMode.Impulse);
         rb.AddForce(CalculateForce(45, forceZ*forceMagnitude), ForceMode.Impulse);
 
         rootX.transform.localScale = new Vector3(1,-forceX,1);
+
+        if(rootY) rootY.transform.localScale = new Vector3(1,-forceY,1);
+
         rootZ.transform.localScale = new Vector3(1,-forceZ,1);
+
         FuelCalculations();
         UpdateBoosters();
     }
@@ -74,22 +85,37 @@ public class GoalAgent3DForce : Agent
         
         float xComponent = Mathf.Cos(angle * Mathf.Deg2Rad) * fMagnitude;
         float zComponent = Mathf.Sin(angle * Mathf.Deg2Rad) * fMagnitude;
-        return new Vector3(xComponent, 0f, zComponent);
+        return new Vector3(xComponent, 0, zComponent);
 
     }
+    
 
     void UpdateBoosters()
     {
         UpdateBooster(forceZ, posBoosterZ);
         UpdateBooster(-forceZ, negBoosterZ);
+        
         UpdateBooster(-forceX, posBoosterX);
         UpdateBooster(forceX, negBoosterX);
+
+        if(posBoosterY)
+        {
+            UpdateBooster(-forceY, posBoosterY);
+            UpdateBooster(forceY, negBoosterY);
+        }
     }
 
     void InitBoosters()
     {
         posBoosterX.Play();
         negBoosterX.Play();
+        
+        if(posBoosterY)
+        {
+            posBoosterY.Play();
+            negBoosterY.Play();
+        }
+
         posBoosterZ.Play();
         negBoosterZ.Play();
 
@@ -131,7 +157,15 @@ public class GoalAgent3DForce : Agent
     {
         ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
         continuousActions[0] = -Input.GetAxis("Horizontal");
-        continuousActions[1] = Input.GetAxis("Vertical");
+        if(Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            continuousActions[2 ] = Input.GetAxis("Vertical");
+
+        }
+        else
+        {
+            continuousActions[1] = Input.GetAxis("Vertical");
+        }
     }
 
     public int EmmisionRateForParticles = 80;
@@ -155,6 +189,8 @@ public class GoalAgent3DForce : Agent
     {
         forceX = -actions.ContinuousActions[0];
         forceZ = actions.ContinuousActions[1];
+
+        if(rootY) forceY = actions.ContinuousActions[2];
     }
 
     void ResetTimer()
