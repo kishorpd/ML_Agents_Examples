@@ -20,7 +20,7 @@ public class RocketBooster : MonoBehaviour
 
     private void Update()
     {
-        bInput = (Input.GetKey(isUp ? KeyCode.RightArrow : KeyCode.LeftArrow));
+        bInput = (Input.GetKey(isUp ? KeyCode.J : KeyCode.L));
     }
 
     private void FixedUpdate()
@@ -29,7 +29,7 @@ public class RocketBooster : MonoBehaviour
         {
             Debug.LogError("Dumbo");
             // Calculate the booster's forward direction
-            Vector3 boosterForward = transform.up;
+            Vector3 boosterForward = transform.forward;
 
             // Apply force to the target Rigidbody along the booster's forward direction
             targetRigidbody.AddForce(boosterForward * thrust, ForceMode.Force);
