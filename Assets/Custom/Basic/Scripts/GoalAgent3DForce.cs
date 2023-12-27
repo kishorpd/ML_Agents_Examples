@@ -5,6 +5,7 @@ using Unity.Mathematics;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Android;
 using Random = UnityEngine.Random;
@@ -55,7 +56,35 @@ public class GoalAgent3DForce : Agent
     {
         ForceApplication();
     }
-    
+
+
+
+    public float angleBetween = 0;
+
+    private void OnDrawGizmos()
+    {
+
+
+        Vector3 LookDirection = transform.forward;
+        Vector3 relativeDirection = (targetTransform.position - transform.position).normalized;
+
+        float angle = 135 - Vector3.Angle(LookDirection, relativeDirection);
+        float enemyFov = 45.0f; // Biggest angle that enemy can see from the center of view
+
+        if (angle < enemyFov)
+        {
+            // Enemy can see the player
+            // Implement your logic here
+        }
+
+
+
+
+       // angleBetween = 90 - Vector3.Angle(transform.forward, targetTransform.position);
+
+        Handles.Label(transform.localPosition, "angle : " + angle);
+    }
+
     void KeyBased()
     {
         forceX = Input.GetAxis("Horizontal");
@@ -142,6 +171,7 @@ public class GoalAgent3DForce : Agent
         sensor.AddObservation(direction);//3
         sensor.AddObservation(Vector3.Distance(transform.localPosition,targetTransform.localPosition));//3
         sensor.AddObservation(FuelRemaining);//1
+        sensor.AddObservation(angleBetween);
         //Total : 13
     }
 
@@ -238,8 +268,14 @@ public class GoalAgent3DForce : Agent
         ResetScene();
     }
 
+   // float maxAngle = 150;
+   // float minAngle = 110;
+
     void GiveRewards(float reward = 1f)
     {
+
+      //  float rewardValue =  
+
         SetReward(1f);
         FloorMeshRenderer.material = winMaterial;
         
