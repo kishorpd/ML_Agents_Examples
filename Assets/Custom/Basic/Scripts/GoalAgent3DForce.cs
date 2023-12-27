@@ -71,9 +71,7 @@ public class GoalAgent3DForce : Agent
         rb.AddForce(CalculateForce(45, forceZ*forceMagnitude), ForceMode.Impulse);
 
         rootX.transform.localScale = new Vector3(1,-forceX,1);
-
-        if(rootY) rootY.transform.localScale = new Vector3(1,-forceY,1);
-
+        rootY.transform.localScale = new Vector3(1,-forceY,1);
         rootZ.transform.localScale = new Vector3(1,-forceZ,1);
 
         FuelCalculations();
@@ -84,8 +82,9 @@ public class GoalAgent3DForce : Agent
     {
         
         float xComponent = Mathf.Cos(angle * Mathf.Deg2Rad) * fMagnitude;
+        float yComponent = fMagnitude;
         float zComponent = Mathf.Sin(angle * Mathf.Deg2Rad) * fMagnitude;
-        return new Vector3(xComponent, 0, zComponent);
+        return new Vector3(xComponent, yComponent, zComponent);
 
     }
     
@@ -98,11 +97,8 @@ public class GoalAgent3DForce : Agent
         UpdateBooster(-forceX, posBoosterX);
         UpdateBooster(forceX, negBoosterX);
 
-        if(posBoosterY)
-        {
-            UpdateBooster(-forceY, posBoosterY);
-            UpdateBooster(forceY, negBoosterY);
-        }
+        UpdateBooster(-forceY, posBoosterY);
+        UpdateBooster(forceY, negBoosterY);
     }
 
     void InitBoosters()
@@ -110,11 +106,8 @@ public class GoalAgent3DForce : Agent
         posBoosterX.Play();
         negBoosterX.Play();
         
-        if(posBoosterY)
-        {
-            posBoosterY.Play();
-            negBoosterY.Play();
-        }
+        posBoosterY.Play();
+        negBoosterY.Play();
 
         posBoosterZ.Play();
         negBoosterZ.Play();
@@ -157,15 +150,8 @@ public class GoalAgent3DForce : Agent
     {
         ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
         continuousActions[0] = -Input.GetAxis("Horizontal");
-        if(Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            continuousActions[2 ] = Input.GetAxis("Vertical");
-
-        }
-        else
-        {
-            continuousActions[1] = Input.GetAxis("Vertical");
-        }
+        continuousActions[1] = Input.GetAxis("Vertical");
+        continuousActions[2] = (Input.GetKey(KeyCode.I) ? 1 : 0) + (Input.GetKey(KeyCode.K) ? -1 : 0);
     }
 
     public int EmmisionRateForParticles = 80;
@@ -189,8 +175,7 @@ public class GoalAgent3DForce : Agent
     {
         forceX = -actions.ContinuousActions[0];
         forceZ = actions.ContinuousActions[1];
-
-        if(rootY) forceY = actions.ContinuousActions[2];
+        forceY = actions.ContinuousActions[2];
     }
 
     void ResetTimer()
@@ -201,7 +186,7 @@ public class GoalAgent3DForce : Agent
     private void ResetScene()
     {
         ResetTimer();
-        transform.localPosition = Vector3.zero;
+        transform.localPosition = new Vector3(0,1,0);
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
     }
@@ -212,7 +197,7 @@ public class GoalAgent3DForce : Agent
     void ChangeRewardPosition()
     {
 
-        targetTransform.localPosition = new Vector3(Random.Range(-7,7), 0, Random.Range(-5,2f));
+        targetTransform.localPosition = new Vector3(Random.Range(-7,7), Random.Range(1, 4f), Random.Range(-5,2f));
     }
     
     void ChangeRewardPositionRadial()
