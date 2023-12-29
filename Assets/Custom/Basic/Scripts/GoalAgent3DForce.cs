@@ -87,8 +87,8 @@ public class GoalAgent3DForce : Agent
         // Calculate the dot product of the car's forward vector and the vector to the waypoint
         float dotProduct = Vector3.Dot(-playerT.right, toWaypoint);
 
-        Debug.LogError(" toWaypoint: " + toWaypoint);
-        Debug.LogError(" dotProduct : " + dotProduct);
+//        Debug.LogError(" toWaypoint: " + toWaypoint);
+  //      Debug.LogError(" dotProduct : " + dotProduct);
 
         // If the dot product is negative, the waypoint is on the back side of the car
         return dotProduct < 0f;

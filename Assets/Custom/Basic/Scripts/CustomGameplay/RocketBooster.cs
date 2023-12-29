@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class RocketBooster : MonoBehaviour
 {
-    public float localThrust = 10f; // Adjust the force magnitude as needed
+    public float localThrust = 1f; // Adjust the force magnitude as needed
 
     public Transform referencePoint; // Assign the reference point in the Inspector
     private Rigidbody targetRigidbody;
