@@ -706,7 +706,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9111460038207961936
 Transform:
   m_ObjectHideFlags: 0
@@ -963,7 +963,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2551363632025551051
 Transform:
   m_ObjectHideFlags: 0
@@ -1255,12 +1255,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 16
+    VectorObservationSize: 14
     NumStackedVectorObservations: 1
     m_ActionSpec:
-      m_NumContinuousActions: 3
+      m_NumContinuousActions: 4
       BranchSizes: 
-    VectorActionSize: 03000000
+    VectorActionSize: 04000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
@@ -1297,6 +1297,7 @@ MonoBehaviour:
   rootX: {fileID: 5486969926594314655}
   rootY: {fileID: 1628578625011593150}
   rootZ: {fileID: 6944760754600791071}
+  rootTorqY: {fileID: 648019751155081800}
   FuelIndicator: {fileID: 6322197493777627644}
   DefaultFuelSize: 100
   DefaultConsumptionRate: 0.03
@@ -1308,6 +1309,8 @@ MonoBehaviour:
   negBoosterZ: {fileID: 4313425398234832994}
   debugForceMultiplier: 3
   angleBetween: -47.648468
+  rRocketBooster: {fileID: 3496027501536611359}
+  lRocketBooster: {fileID: 3046100494397446560}
   FuelRemaining: 100
   EmmisionRateForParticles: 80
   rangeH: 1
@@ -3016,7 +3019,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2550160821480287818, guid: f771bc45e13e03a4bab796116f2ddb77, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2993423501518051917, guid: f771bc45e13e03a4bab796116f2ddb77, type: 3}
       propertyPath: m_Enabled
@@ -3048,6 +3051,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 676028150557829200, guid: f771bc45e13e03a4bab796116f2ddb77, type: 3}
   m_PrefabInstance: {fileID: 274484909533922285}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3046100494397446560 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2993423501518051917, guid: f771bc45e13e03a4bab796116f2ddb77, type: 3}
+  m_PrefabInstance: {fileID: 274484909533922285}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39c79c016f4c19f4c96bf1aaa9ee3f7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1336802432178541113
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3340,7 +3354,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2550160821480287818, guid: f771bc45e13e03a4bab796116f2ddb77, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2993423501518051917, guid: f771bc45e13e03a4bab796116f2ddb77, type: 3}
       propertyPath: isUp
@@ -3376,6 +3390,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 676028150557829200, guid: f771bc45e13e03a4bab796116f2ddb77, type: 3}
   m_PrefabInstance: {fileID: 1805561567792338514}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3496027501536611359 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2993423501518051917, guid: f771bc45e13e03a4bab796116f2ddb77, type: 3}
+  m_PrefabInstance: {fileID: 1805561567792338514}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39c79c016f4c19f4c96bf1aaa9ee3f7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3536879371239750980
 PrefabInstance:
   m_ObjectHideFlags: 0

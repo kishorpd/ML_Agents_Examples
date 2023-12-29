@@ -1043,7 +1043,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &236524017
 Transform:
   m_ObjectHideFlags: 0
@@ -1926,6 +1926,7 @@ MonoBehaviour:
   thrust: 1
   referencePoint: {fileID: 0}
   isUp: 0
+  bInput: 0
   rotationSpeed: 0
 --- !u!136 &530593806
 CapsuleCollider:
@@ -2940,6 +2941,7 @@ MonoBehaviour:
   thrust: 1
   referencePoint: {fileID: 0}
   isUp: 1
+  bInput: 0
   rotationSpeed: 0
 --- !u!136 &769448065
 CapsuleCollider:
@@ -4533,6 +4535,7 @@ MonoBehaviour:
   thrust: 0
   referencePoint: {fileID: 0}
   isUp: 1
+  bInput: 0
   rotationSpeed: 0
 --- !u!1001 &1285569279
 PrefabInstance:
@@ -5166,6 +5169,7 @@ MonoBehaviour:
   thrust: 1
   referencePoint: {fileID: 0}
   isUp: 1
+  bInput: 0
   rotationSpeed: 0
 --- !u!136 &1522779424
 CapsuleCollider:
@@ -5903,6 +5907,7 @@ MonoBehaviour:
   thrust: 10
   referencePoint: {fileID: 1447456710}
   isUp: 1
+  bInput: 0
   rotationSpeed: 30
 --- !u!136 &1862788871
 CapsuleCollider:
