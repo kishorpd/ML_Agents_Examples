@@ -61,28 +61,35 @@ public class GoalAgent3DForce : Agent
 
     public float angleBetween = 0;
 
+   // float rewardValue = 0;
+
     private void OnDrawGizmos()
     {
 
+        //Handles.Label(transform.localPosition, "angle : " + getTargetAngle() + " IsTargetInFront : " + IsTargetInFront(transform,targetTransform));
+    }
 
+    float getTargetAngle()
+    {
         Vector3 LookDirection = transform.forward;
         Vector3 relativeDirection = (targetTransform.position - transform.position).normalized;
-
-        float angle = 135 - Vector3.Angle(LookDirection, relativeDirection);
-        float enemyFov = 45.0f; // Biggest angle that enemy can see from the center of view
-
-        if (angle < enemyFov)
-        {
-            // Enemy can see the player
-            // Implement your logic here
-        }
+        return 135 - Vector3.Angle(LookDirection, relativeDirection);
+    }
 
 
+    private bool IsTargetInFront(Transform playerT, Transform targetT)
+    {
+        // Get the vector from the car to the waypoint
+        Vector3 toWaypoint = targetT.position - playerT.position;
 
+        // Calculate the dot product of the car's forward vector and the vector to the waypoint
+        float dotProduct = Vector3.Dot(-playerT.right, toWaypoint);
 
-       // angleBetween = 90 - Vector3.Angle(transform.forward, targetTransform.position);
+        Debug.LogError(" toWaypoint: " + toWaypoint);
+        Debug.LogError(" dotProduct : " + dotProduct);
 
-        Handles.Label(transform.localPosition, "angle : " + angle);
+        // If the dot product is negative, the waypoint is on the back side of the car
+        return dotProduct < 0f;
     }
 
     void KeyBased()
@@ -171,8 +178,8 @@ public class GoalAgent3DForce : Agent
         sensor.AddObservation(direction);//3
         sensor.AddObservation(Vector3.Distance(transform.localPosition,targetTransform.localPosition));//3
         sensor.AddObservation(FuelRemaining);//1
-        sensor.AddObservation(angleBetween);
-        //Total : 13
+        sensor.AddObservation(getTargetAngle());//1
+        //Total : 14
     }
 
 
@@ -268,15 +275,16 @@ public class GoalAgent3DForce : Agent
         ResetScene();
     }
 
-   // float maxAngle = 150;
-   // float minAngle = 110;
+    float maxAngle = 10;
 
     void GiveRewards(float reward = 1f)
     {
+        float currentAngle = math.abs(getTargetAngle());
+        float rewardValue = 
+            ((currentAngle <= maxAngle) && IsTargetInFront(transform, targetTransform)) ? 
+            (1 - (currentAngle/ maxAngle)) : 0;
 
-      //  float rewardValue =  
-
-        SetReward(1f);
+        SetReward(rewardValue);
         FloorMeshRenderer.material = winMaterial;
         
         //Change position only when it succeeds
