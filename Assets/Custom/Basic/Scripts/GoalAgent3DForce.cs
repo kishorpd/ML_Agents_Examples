@@ -23,6 +23,7 @@ public class GoalAgent3DForce : Agent
     public GameObject rootX;
     public GameObject rootY;
     public GameObject rootZ;
+    public GameObject rootTorqY;
     private Rigidbody rb;
     public GameObject FuelIndicator;
     public float DefaultFuelSize = 100;
@@ -50,6 +51,7 @@ public class GoalAgent3DForce : Agent
     float forceX;
     float forceY;
     float forceZ;
+    float torqueY;
     public float debugForceMultiplier = 3;
 
     void FixedUpdate()
@@ -100,15 +102,25 @@ public class GoalAgent3DForce : Agent
         ForceApplication();
     }
 
+    public RocketBooster rRocketBooster;
+    public RocketBooster lRocketBooster;
+
     void ForceApplication()
     {
         rb.AddForce(CalculateForce(135, forceX*forceMagnitude), ForceMode.Impulse);
         rb.AddForce( new Vector3(0, forceY * forceMagnitude,0), ForceMode.Impulse);
         rb.AddForce(CalculateForce(45, forceZ*forceMagnitude), ForceMode.Impulse);
 
+        
+
+        if(torqueY > 0) { rRocketBooster.AddForceOrTorque(math.abs(torqueY)); }
+        else { lRocketBooster.AddForceOrTorque(math.abs(torqueY)); }
+
         rootX.transform.localScale = new Vector3(1,-forceX,1);
         rootY.transform.localScale = new Vector3(1,-forceY,1);
         rootZ.transform.localScale = new Vector3(1,-forceZ,1);
+
+        rootTorqY.transform.localScale = new Vector3(1,-torqueY,1);
 
         FuelCalculations();
         UpdateBoosters();
@@ -189,6 +201,7 @@ public class GoalAgent3DForce : Agent
         continuousActions[0] = -Input.GetAxis("Horizontal");
         continuousActions[1] = Input.GetAxis("Vertical");
         continuousActions[2] = (Input.GetKey(KeyCode.I) ? 1 : 0) + (Input.GetKey(KeyCode.K) ? -1 : 0);
+        continuousActions[3] = (Input.GetKey(KeyCode.J) ? 1 : 0) + (Input.GetKey(KeyCode.L) ? -1 : 0);
     }
 
     public int EmmisionRateForParticles = 80;
@@ -213,6 +226,7 @@ public class GoalAgent3DForce : Agent
         forceX = -actions.ContinuousActions[0];
         forceZ = actions.ContinuousActions[1];
         forceY = actions.ContinuousActions[2];
+        torqueY = actions.ContinuousActions[3];
     }
 
     void ResetTimer()
