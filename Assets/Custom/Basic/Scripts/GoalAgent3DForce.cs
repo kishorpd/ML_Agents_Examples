@@ -45,7 +45,7 @@ public class GoalAgent3DForce : Agent
         InitBoosters();
         
         
-        targetTransform.localPosition = new Vector3(Random.Range(-rangeH,rangeH), 0, -rangeV);
+   //     targetTransform.localPosition = new Vector3(Random.Range(-rangeH,rangeH), 0, -rangeV);
     }
     
     float forceX;
@@ -186,12 +186,16 @@ public class GoalAgent3DForce : Agent
     {
         sensor.AddObservation(transform.localPosition);//3
         sensor.AddObservation(targetTransform.localPosition);//3
+        
         var direction = (transform.localPosition - targetTransform.localPosition).normalized;
         sensor.AddObservation(direction);//3
+        
         sensor.AddObservation(Vector3.Distance(transform.localPosition,targetTransform.localPosition));//3
         sensor.AddObservation(FuelRemaining);//1
         sensor.AddObservation(getTargetAngle());//1
-        //Total : 14
+
+        sensor.AddObservation(IsTargetInFront(transform,targetTransform) );//1
+        //Total : 15
     }
 
 
@@ -248,7 +252,8 @@ public class GoalAgent3DForce : Agent
     void ChangeRewardPosition()
     {
 
-        targetTransform.localPosition = new Vector3(Random.Range(-7,7), Random.Range(1, 4f), Random.Range(-5,2f));
+        targetTransform.localPosition = new Vector3(Random.Range(-7,7), 3, Random.Range(-5,2f));
+        //targetTransform.localPosition = new Vector3(Random.Range(-7,7), Random.Range(1, 4f), Random.Range(-5,2f));
     }
     
     void ChangeRewardPositionRadial()
@@ -298,7 +303,7 @@ public class GoalAgent3DForce : Agent
             ((currentAngle <= maxAngle) && IsTargetInFront(transform, targetTransform)) ? 
             (1 - (currentAngle/ maxAngle)) : 0;
 
-        SetReward(rewardValue);
+        SetReward(1 + rewardValue);
         FloorMeshRenderer.material = winMaterial;
         
         //Change position only when it succeeds
