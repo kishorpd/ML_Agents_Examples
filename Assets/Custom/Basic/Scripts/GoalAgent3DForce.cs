@@ -39,12 +39,18 @@ public class GoalAgent3DForce : Agent
     public ParticleSystem posBoosterZ;
     public ParticleSystem negBoosterZ;
 
+    Vector3 startingPosition;
+    Quaternion startingRotation;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         InitBoosters();
-        
-        
+        startingPosition = transform.localPosition;
+        startingRotation = transform.localRotation;
+
+        ChangeRewardPosition();
+
    //     targetTransform.localPosition = new Vector3(Random.Range(-rangeH,rangeH), 0, -rangeV);
     }
     
@@ -69,6 +75,12 @@ public class GoalAgent3DForce : Agent
     {
 
         //Handles.Label(transform.localPosition, "angle : " + getTargetAngle() + " IsTargetInFront : " + IsTargetInFront(transform,targetTransform));
+
+        if (bChangeRewardPos)
+        {
+            bChangeRewardPos = false;
+            targetTransform.localPosition = new Vector3(-5,0,Random.Range(-5, 1.5f));
+        }
     }
 
     float getTargetAngle()
@@ -239,7 +251,12 @@ public class GoalAgent3DForce : Agent
     private void ResetScene()
     {
         ResetTimer();
-        transform.localPosition = new Vector3(0,1,0);
+        //transform.localPosition = new Vector3(0,1,0);
+
+
+        transform.localPosition = startingPosition;
+        transform.localRotation = startingRotation;
+
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
     }
@@ -247,10 +264,18 @@ public class GoalAgent3DForce : Agent
 
     public float rangeH = 1;
     public float rangeV = 1;
+
+    public bool bChangeRewardPos = true;
+
+    public bool forth = false;
+
     void ChangeRewardPosition()
     {
 
-        targetTransform.localPosition = new Vector3(Random.Range(-7,7), 3, Random.Range(-5,2f));
+        //targetTransform.localPosition = new Vector3(Random.Range(-7,7), 3, Random.Range(-5,2f));
+
+        targetTransform.localPosition = new Vector3(5 * (forth ? 1 : -1), 1, Random.Range(-5, 1.5f));
+      //  forth = !forth;
         //targetTransform.localPosition = new Vector3(Random.Range(-7,7), Random.Range(1, 4f), Random.Range(-5,2f));
     }
     
@@ -308,6 +333,6 @@ public class GoalAgent3DForce : Agent
         ChangeRewardPosition();
 
         EndEpisode();
-      //  ResetScene();
+       // ResetScene();
     }
 }
