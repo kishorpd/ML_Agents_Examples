@@ -263,6 +263,7 @@ public class GoalAgent3DForce : Agent
 
 
     public float rangeH = 1;
+    public float rangeReward = 1;
     public float rangeV = 1;
 
     public bool bChangeRewardPos = true;
@@ -274,7 +275,7 @@ public class GoalAgent3DForce : Agent
 
         //targetTransform.localPosition = new Vector3(Random.Range(-7,7), 3, Random.Range(-5,2f));
 
-        targetTransform.localPosition = new Vector3(5 * (forth ? 1 : -1), 1, Random.Range(-5, 1.5f));
+        targetTransform.localPosition = new Vector3(Random.Range(rangeReward, -rangeReward) * (forth ? 1 : -1), 1, Random.Range(-5, 1.5f));
       //  forth = !forth;
         //targetTransform.localPosition = new Vector3(Random.Range(-7,7), Random.Range(1, 4f), Random.Range(-5,2f));
     }
@@ -326,7 +327,7 @@ public class GoalAgent3DForce : Agent
             ((currentAngle <= maxAngle) && IsTargetInFront(transform, targetTransform)) ? 
             (1 - (currentAngle/ maxAngle)) : 0;
 
-        SetReward(1 + rewardValue);
+        SetReward(rewardValue);
         FloorMeshRenderer.material = winMaterial;
         
         //Change position only when it succeeds
