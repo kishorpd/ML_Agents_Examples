@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.95955, z: -1.79}
-  m_LocalScale: {x: 16.970455, y: 0.84852326, z: 9.338984}
+  m_LocalScale: {x: 32.0504, y: 0.84852326, z: 12.296639}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7769473859011859536}
@@ -1212,15 +1212,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4873989639906116837}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0.24, y: 0.77, z: 0.38}
+  m_LocalRotation: {x: 0, y: 0.92387956, z: 0, w: 0.38268343}
+  m_LocalPosition: {x: 11.83, y: 0.77, z: -2.67}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5327156663341003464}
   - {fileID: 1547594344481287361}
   m_Father: {fileID: 7854316760197926078}
-  m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 135, z: 0}
 --- !u!65 &9028754285619956111
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1241,7 +1241,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 2.8236544, z: 1}
-  m_Center: {x: 0, y: 0.96, z: 0}
+  m_Center: {x: 0.2, y: 0.9599999, z: -0.2}
 --- !u!114 &3362222184741887216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1255,7 +1255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 17
+    VectorObservationSize: 14
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 4
@@ -1308,12 +1308,16 @@ MonoBehaviour:
   posBoosterZ: {fileID: 5821947694756605106}
   negBoosterZ: {fileID: 4313425398234832994}
   debugForceMultiplier: 3
+  penaltyDistanceDifference: 0.7
+  currentDistance: 0
+  bInRewardsRange: 0
   angleBetween: -47.648468
   rRocketBooster: {fileID: 3496027501536611359}
   lRocketBooster: {fileID: 3046100494397446560}
   FuelRemaining: 100
   EmmisionRateForParticles: 80
   rangeH: 1
+  rangeReward: -1
   rangeV: 1
   bChangeRewardPos: 0
   forth: 0
@@ -2858,8 +2862,8 @@ Transform:
   m_GameObject: {fileID: 8934925183143129426}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.72, y: 1.06, z: -0.94}
-  m_LocalScale: {x: 0.84, y: 0.84, z: 0.84}
+  m_LocalPosition: {x: 4.1, y: 1.06, z: -0.94}
+  m_LocalScale: {x: 1.2706679, y: 1.2706679, z: 1.2706679}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7854316760197926078}
@@ -3029,7 +3033,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2993423501518051917, guid: f771bc45e13e03a4bab796116f2ddb77, type: 3}
       propertyPath: localThrust
-      value: 0.001
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 2993423501518051917, guid: f771bc45e13e03a4bab796116f2ddb77, type: 3}
       propertyPath: referencePoint
@@ -3372,7 +3376,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2993423501518051917, guid: f771bc45e13e03a4bab796116f2ddb77, type: 3}
       propertyPath: localThrust
-      value: 0.001
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 2993423501518051917, guid: f771bc45e13e03a4bab796116f2ddb77, type: 3}
       propertyPath: referencePoint

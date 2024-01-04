@@ -49,6 +49,8 @@ public class GoalAgent3DForce : Agent
         startingPosition = transform.localPosition;
         startingRotation = transform.localRotation;
 
+        previousAngle = startingRotation.eulerAngles.y;
+
         ChangeRewardPosition();
 
    //     targetTransform.localPosition = new Vector3(Random.Range(-rangeH,rangeH), 0, -rangeV);
@@ -60,11 +62,74 @@ public class GoalAgent3DForce : Agent
     float torqueY;
     public float debugForceMultiplier = 3;
 
+
+
+    public float penaltyDistanceDifference = 0.7f;
+
+    float minDistance = 9999999999;
+    public float currentDistance = 0;
+
+    public bool bInRewardsRange = false;
+
+
     void FixedUpdate()
     {
         ForceApplication();
+        CheckAngle();
+
+        currentDistance = Vector3.Distance(transform.localPosition, targetTransform.localPosition);
+
+        if (minDistance < currentDistance) { minDistance = currentDistance; }
+
+        if (!bInRewardsRange) bInRewardsRange = minDistance < penaltyDistanceDifference;
+
+        if (bInRewardsRange)
+        {
+            if (minDistance > penaltyDistanceDifference)
+                Penalize();
+        }
     }
 
+
+    float totalAngleDifference = 0;
+    float previousAngle = 0;
+
+
+
+    void CheckAngle()
+    {
+        float angleDifference = transform.localEulerAngles.y - startingRotation.eulerAngles.y;
+
+        float deltaAngle = transform.localEulerAngles.y - previousAngle;
+
+        if(math.abs(deltaAngle) < 5) totalAngleDifference += deltaAngle;
+
+        previousAngle = transform.localEulerAngles.y;
+
+        //
+        //        float clampedRotation = Mathf.Repeat(angleDifference, 360f);
+        //
+        //        if (clampedRotation < 0)
+        //        {
+        //            clampedRotation += 360f;
+        //        }
+        //
+
+        if (math.abs(totalAngleDifference) > 359) Penalize(); 
+
+        /*
+        //For gizmo
+        Handles.Label(
+            transform.localPosition, 
+            " angleDifference : " + angleDifference +
+            "\n clampedRotation : " + clampedRotation +
+            "\n deltaAngle : " + deltaAngle +
+            "\n totalAngleDifference : " + totalAngleDifference + 
+            "\n ABS totalAngleDifference : " + math.abs(totalAngleDifference) + 
+            " \n transform.rotation.eulerAngles.z : " + transform.rotation.eulerAngles.y
+            );
+        */
+    }
 
 
     public float angleBetween = 0;
@@ -75,12 +140,13 @@ public class GoalAgent3DForce : Agent
     {
 
         //Handles.Label(transform.localPosition, "angle : " + getTargetAngle() + " IsTargetInFront : " + IsTargetInFront(transform,targetTransform));
-
+        /*
         if (bChangeRewardPos)
         {
             bChangeRewardPos = false;
             targetTransform.localPosition = new Vector3(-5,0,Random.Range(-5, 1.5f));
         }
+        */
     }
 
     float getTargetAngle()
@@ -192,6 +258,8 @@ public class GoalAgent3DForce : Agent
     }
 
     public float FuelRemaining = 100;
+
+
     public override void CollectObservations(VectorSensor sensor)
     {
         sensor.AddObservation(transform.localPosition);//3
@@ -199,13 +267,14 @@ public class GoalAgent3DForce : Agent
         
         var direction = (transform.localPosition - targetTransform.localPosition).normalized;
         sensor.AddObservation(direction);//3
-        
-        sensor.AddObservation(Vector3.Distance(transform.localPosition,targetTransform.localPosition));//3
+
+        sensor.AddObservation(currentDistance);//1
         sensor.AddObservation(FuelRemaining);//1
         sensor.AddObservation(getTargetAngle());//1
 
         sensor.AddObservation(IsTargetInFront(transform,targetTransform) );//1
-        //Total : 15
+        sensor.AddObservation(totalAngleDifference);//1
+        //Total : 14
     }
 
 
@@ -248,8 +317,19 @@ public class GoalAgent3DForce : Agent
         FuelRemaining = DefaultFuelSize;
     }
 
+    void ResetParams()
+    { 
+        totalAngleDifference = 0;
+        minDistance = 9999999999;
+        bInRewardsRange = false;
+
+    //    startingRotation = transform.localRotation;
+
+    }
+
     private void ResetScene()
     {
+        ResetParams();
         ResetTimer();
         //transform.localPosition = new Vector3(0,1,0);
 
@@ -259,8 +339,14 @@ public class GoalAgent3DForce : Agent
 
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
+        rb.freezeRotation = true;
+        Invoke("EnableRotation", .1f);
     }
 
+    void EnableRotation()
+    {
+        rb.freezeRotation = false;
+    }
 
     public float rangeH = 1;
     public float rangeReward = 1;
@@ -275,7 +361,8 @@ public class GoalAgent3DForce : Agent
 
         //targetTransform.localPosition = new Vector3(Random.Range(-7,7), 3, Random.Range(-5,2f));
 
-        targetTransform.localPosition = new Vector3(Random.Range(rangeReward, -rangeReward) * (forth ? 1 : -1), 1, Random.Range(-5, 1.5f));
+        targetTransform.localPosition = new Vector3(-rangeReward, 1, Random.Range(-5, 1.5f));
+  //      targetTransform.localPosition = new Vector3(Random.Range(rangeReward, -rangeReward) * (forth ? 1 : -1), 1, Random.Range(-5, 1.5f));
       //  forth = !forth;
         //targetTransform.localPosition = new Vector3(Random.Range(-7,7), Random.Range(1, 4f), Random.Range(-5,2f));
     }
@@ -334,6 +421,7 @@ public class GoalAgent3DForce : Agent
         ChangeRewardPosition();
 
         EndEpisode();
+        ResetParams();
        // ResetScene();
     }
 }
