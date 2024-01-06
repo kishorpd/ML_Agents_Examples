@@ -66,7 +66,7 @@ public class GoalAgent3DForce : Agent
 
     public float penaltyDistanceDifference = 0.7f;
 
-    float minDistance = 9999999999;
+    float minDistance = 999;
     public float currentDistance = 0;
 
     public bool bInRewardsRange = false;
@@ -79,13 +79,13 @@ public class GoalAgent3DForce : Agent
 
         currentDistance = Vector3.Distance(transform.localPosition, targetTransform.localPosition);
 
-        if (minDistance < currentDistance) { minDistance = currentDistance; }
+        if (minDistance > currentDistance) { minDistance = currentDistance; }
 
         if (!bInRewardsRange) bInRewardsRange = minDistance < penaltyDistanceDifference;
 
         if (bInRewardsRange)
         {
-            if (minDistance > penaltyDistanceDifference)
+            if (currentDistance > penaltyDistanceDifference)
                 Penalize();
         }
     }
@@ -320,7 +320,7 @@ public class GoalAgent3DForce : Agent
     void ResetParams()
     { 
         totalAngleDifference = 0;
-        minDistance = 9999999999;
+        minDistance = 999;
         bInRewardsRange = false;
 
     //    startingRotation = transform.localRotation;

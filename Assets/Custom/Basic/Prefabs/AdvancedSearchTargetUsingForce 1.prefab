@@ -1308,7 +1308,7 @@ MonoBehaviour:
   posBoosterZ: {fileID: 5821947694756605106}
   negBoosterZ: {fileID: 4313425398234832994}
   debugForceMultiplier: 3
-  penaltyDistanceDifference: 0.7
+  penaltyDistanceDifference: 3
   currentDistance: 0
   bInRewardsRange: 0
   angleBetween: -47.648468
@@ -1317,7 +1317,7 @@ MonoBehaviour:
   FuelRemaining: 100
   EmmisionRateForParticles: 80
   rangeH: 1
-  rangeReward: -1
+  rangeReward: -3
   rangeV: 1
   bChangeRewardPos: 0
   forth: 0
