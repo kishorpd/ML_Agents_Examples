@@ -322,9 +322,6 @@ public class GoalAgent3DForce : Agent
         totalAngleDifference = 0;
         minDistance = 999;
         bInRewardsRange = false;
-
-    //    startingRotation = transform.localRotation;
-
     }
 
     private void ResetScene()
@@ -414,7 +411,7 @@ public class GoalAgent3DForce : Agent
             ((currentAngle <= maxAngle) && IsTargetInFront(transform, targetTransform)) ? 
             (1 - (currentAngle/ maxAngle)) : 0;
 
-        SetReward(rewardValue);
+        SetReward(1 + rewardValue);
         FloorMeshRenderer.material = winMaterial;
         
         //Change position only when it succeeds
