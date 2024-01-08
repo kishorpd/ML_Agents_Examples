@@ -66,7 +66,7 @@ public class GoalAgent3DForce : Agent
 
     public float penaltyDistanceDifference = 0.7f;
 
-    float minDistance = 999;
+ //   float minDistance = 999;
     public float currentDistance = 0;
 
     public bool bInRewardsRange = false;
@@ -79,6 +79,7 @@ public class GoalAgent3DForce : Agent
 
         currentDistance = Vector3.Distance(transform.localPosition, targetTransform.localPosition);
 
+        /*
         if (minDistance > currentDistance) { minDistance = currentDistance; }
 
         if (!bInRewardsRange) bInRewardsRange = minDistance < penaltyDistanceDifference;
@@ -88,6 +89,7 @@ public class GoalAgent3DForce : Agent
             if (currentDistance > penaltyDistanceDifference)
                 Penalize();
         }
+         */
     }
 
 
@@ -263,18 +265,13 @@ public class GoalAgent3DForce : Agent
     public override void CollectObservations(VectorSensor sensor)
     {
         sensor.AddObservation(transform.localPosition);//3
-        sensor.AddObservation(targetTransform.localPosition);//3
-        
-        var direction = (transform.localPosition - targetTransform.localPosition).normalized;
-        sensor.AddObservation(direction);//3
 
-        sensor.AddObservation(currentDistance);//1
         sensor.AddObservation(FuelRemaining);//1
         sensor.AddObservation(getTargetAngle());//1
 
         sensor.AddObservation(IsTargetInFront(transform,targetTransform) );//1
-        sensor.AddObservation(totalAngleDifference);//1
-        //Total : 14
+        //sensor.AddObservation(totalAngleDifference);//1
+        //Total : 6
     }
 
 
@@ -320,7 +317,7 @@ public class GoalAgent3DForce : Agent
     void ResetParams()
     { 
         totalAngleDifference = 0;
-        minDistance = 999;
+   //     minDistance = 999;
         bInRewardsRange = false;
     }
 
@@ -357,8 +354,10 @@ public class GoalAgent3DForce : Agent
     {
 
         //targetTransform.localPosition = new Vector3(Random.Range(-7,7), 3, Random.Range(-5,2f));
+        targetTransform.localPosition = new Vector3(Random.Range(6, 8), 1, Random.Range(-4,1f));
+        //targetTransform.localPosition = new Vector3(Random.Range(-rangeReward, rangeReward), 1, Random.Range(-4,1f));
 
-        targetTransform.localPosition = new Vector3(-rangeReward, 1, Random.Range(-5, 1.5f));
+      //  targetTransform.localPosition = new Vector3(-rangeReward, 1, Random.Range(-5, 1.5f));
   //      targetTransform.localPosition = new Vector3(Random.Range(rangeReward, -rangeReward) * (forth ? 1 : -1), 1, Random.Range(-5, 1.5f));
       //  forth = !forth;
         //targetTransform.localPosition = new Vector3(Random.Range(-7,7), Random.Range(1, 4f), Random.Range(-5,2f));
@@ -411,7 +410,7 @@ public class GoalAgent3DForce : Agent
             ((currentAngle <= maxAngle) && IsTargetInFront(transform, targetTransform)) ? 
             (1 - (currentAngle/ maxAngle)) : 0;
 
-        SetReward(1 + rewardValue);
+        SetReward(rewardValue);
         FloorMeshRenderer.material = winMaterial;
         
         //Change position only when it succeeds
