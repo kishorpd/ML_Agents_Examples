@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
+using Unity.Sentis.Layers;
 using UnityEngine;
 
 public class ImitationFoodAgent : Agent
@@ -14,6 +15,12 @@ public class ImitationFoodAgent : Agent
 
     [SerializeField] private FoodSpawner foodSpawner;
     [SerializeField] private RewardButton rewardButton;
+
+
+
+    [SerializeField] private Material winMaterial;
+    [SerializeField] private Material loseMaterial;
+    [SerializeField] private MeshRenderer FloorMeshRenderer;
 
     private Rigidbody rbAgent;
 
@@ -41,8 +48,8 @@ public class ImitationFoodAgent : Agent
 
         if (foodSpawner.HasFoodSpawned())
         {
-            Vector3 dirToFood = (foodSpawner.GetLastFoodTransform().localPosition - transform.localPosition).normalize;
-        sensor.AddObservation(dirToFood.x);
+            Vector3 dirToFood = (foodSpawner.GetLastFoodTransform().localPosition - transform.localPosition).normalized;
+            sensor.AddObservation(dirToFood.x);
             sensor.AddObservation(dirToFood.z);
         }
         else
@@ -98,9 +105,77 @@ public class ImitationFoodAgent : Agent
                 }
             }
         }
+      //  AddReward(-1f / MaxStep);
+    }
 
+
+    public override void Heuristic(in ActionBuffers actionsOut)
+    {
+        ActionSegment<int> discreteActions = actionsOut.DiscreteActions;
+
+        switch (Mathf.RoundToInt(Input.GetAxisRaw("Horizontal")))
+        {
+            case -1: discreteActions[0] = 1; break;
+            case 0: discreteActions[0] = 0; break;
+            case +1:
+                discreteActions[0] = 2; break;
+
+                switch (Mathf.RoundToInt(Input.GetAxisRaw("Vertical")))
+                {
+                    case -1: discreteActions[1] = 1; break;
+                    case 0: discreteActions[1] = 0; break;
+                    case +1: discreteActions[1] = 2; break;
+
+                }
+
+                discreteActions[2] = Input.GetKey(KeyCode.E) ? 1 : 0; // Use Action
+
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+
+
+        if (other.TryGetComponent<Goal>(out Goal goal))
+        {
+            GiveRewards();
+        }
+        if (other.TryGetComponent<Wall>(out Wall wall))
+        {
+            Penalize();
+        }
+
+        /*if (collision.gameObject.TryGetComponent<Wall>(out Wall wall)) {
+        EndEpisode();
+        */
 
     }
+
+
+
+
+    void Penalize(float penalty = -1f)
+    {
+        SetReward(penalty);
+        FloorMeshRenderer.material = loseMaterial;
+        EndEpisode();
+    }
+
+    void GiveRewards(float reward = 1f)
+    {
+        SetReward(1f);
+        FloorMeshRenderer.material = winMaterial;
+
+        foodSpawner.ChangeFoodLocation();
+
+        rewardButton.ResetButton();
+
+
+        EndEpisode();
+
+    }
+
 
 
 

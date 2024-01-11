@@ -44,16 +44,14 @@ public class RewardButton : MonoBehaviour
             canUseButton = false;
 
             OnUsed?.Invoke(this, EventArgs.Empty);
-
         }
 
     }
 
-
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        //TODO : Add a check for tag
+        UseButton();
     }
 
     public void ResetButton()
