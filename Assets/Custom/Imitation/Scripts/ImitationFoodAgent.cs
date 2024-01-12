@@ -10,7 +10,7 @@ using UnityEngine;
 public class ImitationFoodAgent : Agent
 {
 
-    public event EventHandler OnAteFood;
+ //   public event EventHandler OnAteFood;
     public event EventHandler OnEpisodeBeginEvent;
 
     [SerializeField] private FoodSpawner foodSpawner;
@@ -22,12 +22,7 @@ public class ImitationFoodAgent : Agent
     [SerializeField] private Material loseMaterial;
     [SerializeField] private MeshRenderer FloorMeshRenderer;
 
-    private Rigidbody rbAgent;
-
-    private void Awake()
-    {
-        rbAgent = GetComponent<Rigidbody>(); 
-    }
+    [SerializeField] private Rigidbody rbAgent;
 
     public override void OnEpisodeBegin()
     {
@@ -116,21 +111,20 @@ public class ImitationFoodAgent : Agent
         switch (Mathf.RoundToInt(Input.GetAxisRaw("Horizontal")))
         {
             case -1: discreteActions[0] = 1; break;
-            case 0: discreteActions[0] = 0; break;
-            case +1:
-                discreteActions[0] = 2; break;
+            case  0: discreteActions[0] = 0; break;
+            case +1: discreteActions[0] = 2; break;
+        }
 
-                switch (Mathf.RoundToInt(Input.GetAxisRaw("Vertical")))
-                {
-                    case -1: discreteActions[1] = 1; break;
-                    case 0: discreteActions[1] = 0; break;
-                    case +1: discreteActions[1] = 2; break;
-
-                }
-
-                discreteActions[2] = Input.GetKey(KeyCode.E) ? 1 : 0; // Use Action
+        switch (Mathf.RoundToInt(Input.GetAxisRaw("Vertical")))
+        {
+            case -1: discreteActions[1] = 1; break;
+            case 0: discreteActions[1] = 0; break;
+            case +1: discreteActions[1] = 2; break;
 
         }
+
+        discreteActions[2] = Input.GetKey(KeyCode.E) ? 1 : 0; // Use Action
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -139,6 +133,7 @@ public class ImitationFoodAgent : Agent
 
         if (other.TryGetComponent<Goal>(out Goal goal))
         {
+            foodSpawner.gameObject.SetActive(false);
             GiveRewards();
         }
         if (other.TryGetComponent<Wall>(out Wall wall))

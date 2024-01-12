@@ -7,13 +7,11 @@ public class FoodSpawner : MonoBehaviour
 
     public GameObject target;
 
-    
-
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
-        
+        ChangeFoodLocation();
     }
+
 
     public Transform GetLastFoodTransform()
     {
@@ -39,11 +37,4 @@ public class FoodSpawner : MonoBehaviour
     }
 
 
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

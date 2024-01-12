@@ -6,19 +6,18 @@ using UnityEngine;
 public class RewardButton : MonoBehaviour
 {
 
-
+    [SerializeField]
     public event EventHandler OnUsed;
 
     [SerializeField] private Material greenMaterial;
     [SerializeField] private Material greenDarkMaterial;
+    [SerializeField] private Transform buttonTransform;
 
     private MeshRenderer buttonMeshRenderer;
-    private Transform buttonTransform;
     private bool canUseButton;
 
     private void Awake()
     {
-        buttonTransform = transform.Find("Button");
         buttonMeshRenderer = buttonTransform.GetComponent<MeshRenderer>();
         canUseButton = true;
     }
@@ -45,13 +44,14 @@ public class RewardButton : MonoBehaviour
 
             OnUsed?.Invoke(this, EventArgs.Empty);
         }
-
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        //TODO : Add a check for tag
-        UseButton();
+        if (other.TryGetComponent<ImitationFoodAgent>(out ImitationFoodAgent imitationFoodAgent))
+        {
+            UseButton();
+        }
     }
 
     public void ResetButton()
