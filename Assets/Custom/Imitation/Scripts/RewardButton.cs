@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class RewardButton : MonoBehaviour
 {
@@ -25,9 +26,10 @@ public class RewardButton : MonoBehaviour
 
     private void Start()
     {
+        Debug.LogError("-START CALLED!!");
         ResetButton();
-
     }
+
     public bool CanUseButton()
     {
         return canUseButton;
@@ -39,29 +41,26 @@ public class RewardButton : MonoBehaviour
         if (canUseButton)
         {
             buttonMeshRenderer.material = greenDarkMaterial;
-            buttonTransform.localScale = new Vector3(.5f, .2f, .5f);
+            buttonTransform.localScale = new Vector3(1, .5f, 1);
             canUseButton = false;
 
             OnUsed?.Invoke(this, EventArgs.Empty);
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.TryGetComponent<ImitationFoodAgent>(out ImitationFoodAgent imitationFoodAgent))
-        {
-            UseButton();
-        }
-    }
 
     public void ResetButton()
     {
+        Debug.LogError("RESET BUTTON CALLED HERE");
         buttonMeshRenderer.material = greenMaterial;
-        buttonTransform.localScale = new Vector3(.5f, .5f, .5f);
+        buttonTransform.localScale = new Vector3(1, 1, 1);
 
         transform.localPosition =
         new Vector3(
-        transform.localPosition.x, transform.localPosition.y, 3);
+            0, 
+        transform.localPosition.y,
+        Random.Range(1, -1)
+        );
 
         canUseButton = true;
 

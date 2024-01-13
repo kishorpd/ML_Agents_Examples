@@ -179,7 +179,6 @@ GameObject:
   - component: {fileID: 257758053}
   - component: {fileID: 257758056}
   - component: {fileID: 257758055}
-  - component: {fileID: 257758054}
   m_Layer: 0
   m_Name: Base
   m_TagString: Untagged
@@ -202,27 +201,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1907327656}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &257758054
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 257758052}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &257758055
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -316,7 +294,6 @@ GameObject:
   - component: {fileID: 417067433}
   - component: {fileID: 417067436}
   - component: {fileID: 417067435}
-  - component: {fileID: 417067434}
   m_Layer: 0
   m_Name: GreenButton
   m_TagString: Untagged
@@ -339,27 +316,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1907327656}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &417067434
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 417067432}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &417067435
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -627,6 +583,7 @@ GameObject:
   - component: {fileID: 1907327656}
   - component: {fileID: 1907327657}
   - component: {fileID: 1907327658}
+  - component: {fileID: 1907327659}
   m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
@@ -679,6 +636,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 2874820827862143918}
+--- !u!65 &1907327659
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1907327655}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &3164840564684319
 Transform:
   m_ObjectHideFlags: 0
@@ -776,7 +754,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -1091,11 +1069,11 @@ MonoBehaviour:
     VectorObservationSize: 1
     NumStackedVectorObservations: 1
     m_ActionSpec:
-      m_NumContinuousActions: 2
-      BranchSizes: 
-    VectorActionSize: 02000000
+      m_NumContinuousActions: 0
+      BranchSizes: 000000000000000000000000
+    VectorActionSize: 000000000000000000000000
     VectorActionDescriptions: []
-    VectorActionSpaceType: 1
+    VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
@@ -1212,6 +1190,7 @@ GameObject:
   - component: {fileID: 1614598532026117095}
   - component: {fileID: 8222513328702964577}
   - component: {fileID: 472927152453271096}
+  - component: {fileID: 8222513328702964578}
   m_Layer: 0
   m_Name: BasicAgent
   m_TagString: Untagged
@@ -1544,7 +1523,7 @@ Transform:
   m_GameObject: {fileID: 1841223690448959855}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2173,13 +2152,28 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
+  MaxStep: 1000
   foodSpawner: {fileID: 1907327658}
   rewardButton: {fileID: 1907327657}
   winMaterial: {fileID: 2100000, guid: e7b2ba5733631354da52b105583d1cb7, type: 2}
   loseMaterial: {fileID: 2100000, guid: 57c6ad7a7a8820a4fb97712c41f68ef4, type: 2}
   FloorMeshRenderer: {fileID: 7488057182375527309}
   rbAgent: {fileID: 472927152453271096}
+--- !u!114 &8222513328702964578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841223690448959855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 5
+  DecisionStep: 0
+  TakeActionsBetweenDecisions: 1
 --- !u!33 &8360005571059696878
 MeshFilter:
   m_ObjectHideFlags: 0

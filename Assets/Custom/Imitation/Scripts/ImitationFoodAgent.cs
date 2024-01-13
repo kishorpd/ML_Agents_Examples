@@ -56,6 +56,15 @@ public class ImitationFoodAgent : Agent
         }
     }
 
+    public void SpawnFood()
+    {
+        foodSpawner.SpawnFood();
+    }
+    public void ResetButton()
+    {
+        rewardButton.ResetButton();
+    }
+
     public override void OnActionReceived(ActionBuffers actions)
     {
         int moveX = actions.DiscreteActions[0]; // 0 = Dont Move; 1 = Left; 2 = Right
@@ -106,7 +115,6 @@ public class ImitationFoodAgent : Agent
 
     public override void Heuristic(in ActionBuffers actionsOut)
     {
-        Debug.LogError("----");
         ActionSegment<int> discreteActions = actionsOut.DiscreteActions;
 
         switch (Mathf.RoundToInt(Input.GetAxisRaw("Horizontal")))
@@ -131,16 +139,23 @@ public class ImitationFoodAgent : Agent
     private void OnTriggerEnter(Collider other)
     {
 
+        if(rewardButton.CanUseButton() && other.TryGetComponent<RewardButton>(out RewardButton rewardButtonOther))
+        {
+            rewardButtonOther.UseButton();
+            SpawnFood();
+        }
 
         if (other.TryGetComponent<Goal>(out Goal goal))
         {
             foodSpawner.gameObject.SetActive(false);
+
             GiveRewards();
         }
         if (other.TryGetComponent<Wall>(out Wall wall))
         {
             Penalize();
         }
+
 
         /*if (collision.gameObject.TryGetComponent<Wall>(out Wall wall)) {
         EndEpisode();
@@ -162,11 +177,7 @@ public class ImitationFoodAgent : Agent
     {
         SetReward(1f);
         FloorMeshRenderer.material = winMaterial;
-
-        foodSpawner.ChangeFoodLocation();
-
-        rewardButton.ResetButton();
-
+      //  ResetButton();
 
         EndEpisode();
 
