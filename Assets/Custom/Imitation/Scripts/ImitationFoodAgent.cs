@@ -106,6 +106,7 @@ public class ImitationFoodAgent : Agent
 
     public override void Heuristic(in ActionBuffers actionsOut)
     {
+        Debug.LogError("----");
         ActionSegment<int> discreteActions = actionsOut.DiscreteActions;
 
         switch (Mathf.RoundToInt(Input.GetAxisRaw("Horizontal")))
