@@ -196,7 +196,7 @@ Transform:
   m_GameObject: {fileID: 257758052}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.718, y: -0.477, z: 0.064}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.3477, y: 0.21712795, z: 1.3477}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -273,6 +273,38 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 257758052}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &327060797
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 327060798}
+  m_Layer: 0
+  m_Name: Button
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &327060798
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327060797}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 6.718, y: -0.477, z: 0.064}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1907327656}
+  m_Father: {fileID: 804810907980252967}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &417067432
 GameObject:
   m_ObjectHideFlags: 0
@@ -301,7 +333,7 @@ Transform:
   m_GameObject: {fileID: 417067432}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.718, y: -0.477, z: 0.064}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -322,7 +354,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -594,6 +626,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1907327656}
   - component: {fileID: 1907327657}
+  - component: {fileID: 1907327658}
   m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
@@ -609,14 +642,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1907327655}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 257758053}
   - {fileID: 417067433}
-  m_Father: {fileID: 804810907980252967}
+  m_Father: {fileID: 327060798}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1907327657
 MonoBehaviour:
@@ -633,6 +666,19 @@ MonoBehaviour:
   greenMaterial: {fileID: 2100000, guid: c67450f290f3e4897bc40276a619e78d, type: 2}
   greenDarkMaterial: {fileID: 2100000, guid: 66163cf35956a4be08e801b750c26f33, type: 2}
   buttonTransform: {fileID: 417067433}
+--- !u!114 &1907327658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1907327655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55de91bce51b2ba4e92f945730e3381b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 2874820827862143918}
 --- !u!4 &3164840564684319
 Transform:
   m_ObjectHideFlags: 0
@@ -768,7 +814,7 @@ Transform:
   - {fileID: 2098711667124901493}
   - {fileID: 6260967056552583832}
   - {fileID: 1144446255610426080}
-  - {fileID: 1907327656}
+  - {fileID: 327060798}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &850242078563379017
@@ -2128,8 +2174,8 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  foodSpawner: {fileID: 0}
-  rewardButton: {fileID: 0}
+  foodSpawner: {fileID: 1907327658}
+  rewardButton: {fileID: 1907327657}
   winMaterial: {fileID: 2100000, guid: e7b2ba5733631354da52b105583d1cb7, type: 2}
   loseMaterial: {fileID: 2100000, guid: 57c6ad7a7a8820a4fb97712c41f68ef4, type: 2}
   FloorMeshRenderer: {fileID: 7488057182375527309}
