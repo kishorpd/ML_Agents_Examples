@@ -51,7 +51,6 @@ public class RewardButton : MonoBehaviour
 
     public void ResetButton()
     {
-        Debug.LogError("RESET BUTTON CALLED HERE");
         buttonMeshRenderer.material = greenMaterial;
         buttonTransform.localScale = new Vector3(1, 1, 1);
 

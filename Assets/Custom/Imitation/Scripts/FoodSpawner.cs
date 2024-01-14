@@ -28,7 +28,10 @@ public class FoodSpawner : MonoBehaviour
     {
         target.transform.localPosition =
         new Vector3(
-        target.transform.localPosition.x, transform.localPosition.y, 3);
+        Random.Range(-3.0f,-1), 
+        transform.localPosition.y,
+        Random.Range(3.0f, -3)
+        );
         target.SetActive(false);
     }
 

@@ -76,9 +76,9 @@ public class ImitationFoodAgent : Agent
         {
             case 0: addForce.x = 0f; break;
             case 1: addForce.x = -1f; break;
-            case 2:
-                addForce.x = +1f; break;
+            case 2: addForce.x = +1f; break;
         }
+
         switch (moveZ)
         {
             case 0: addForce.z = 0f; break;
@@ -147,7 +147,7 @@ public class ImitationFoodAgent : Agent
 
         if (other.TryGetComponent<Goal>(out Goal goal))
         {
-            foodSpawner.gameObject.SetActive(false);
+            foodSpawner.ChangeFoodLocation();
 
             GiveRewards();
         }
@@ -177,7 +177,7 @@ public class ImitationFoodAgent : Agent
     {
         SetReward(1f);
         FloorMeshRenderer.material = winMaterial;
-      //  ResetButton();
+        ResetButton();
 
         EndEpisode();
 
