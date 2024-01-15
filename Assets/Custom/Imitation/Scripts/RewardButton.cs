@@ -20,13 +20,12 @@ public class RewardButton : MonoBehaviour
     private void Awake()
     {
         buttonMeshRenderer = buttonTransform.GetComponent<MeshRenderer>();
-        canUseButton = true;
+        DisableUseButton();
     }
     
 
     private void Start()
     {
-        Debug.LogError("-START CALLED!!");
         ResetButton();
     }
 
@@ -34,6 +33,17 @@ public class RewardButton : MonoBehaviour
     {
         return canUseButton;
 
+    }
+
+
+    public void EnableUseButton()
+    {
+        canUseButton=true;
+    }
+
+    public void DisableUseButton()
+    {
+        canUseButton=false;
     }
 
     public void UseButton()
@@ -61,7 +71,7 @@ public class RewardButton : MonoBehaviour
         Random.Range(1, -1)
         );
 
-        canUseButton = true;
+        canUseButton = false;
 
     }
 

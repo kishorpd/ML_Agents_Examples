@@ -5,7 +5,12 @@ using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using Unity.Sentis.Layers;
+using UnityEditor.MemoryProfiler;
 using UnityEngine;
+using static UnityEngine.Rendering.VirtualTexturing.Debugging;
+using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
+using UnityEngine.TextCore.Text;
 
 public class ImitationFoodAgent : Agent
 {
@@ -86,28 +91,21 @@ public class ImitationFoodAgent : Agent
             case 2: addForce.z = +1f; break;
         }
 
-
         float moveSpeed = 5f;
         rbAgent.velocity = addForce * moveSpeed + new Vector3(0, rbAgent.velocity.y, 0);
 
         bool isUseButtonDown = actions.DiscreteActions[2] == 1;
         if (isUseButtonDown)
         {
-            // Use Action
-            Collider[] colliderArray = Physics.OverlapBox(transform.position, Vector3.one * .5f);
-            foreach (Collider collider in colliderArray)
+            
+            if (rewardButton.CanUseButton())
             {
-                if (collider.TryGetComponent<RewardButton>(out RewardButton foodButton))
-                {
-                    if (foodButton.CanUseButton())
-                    {
-                        foodButton.UseButton();
-                        AddReward(1f);
+                rewardButton.UseButton();
+                SpawnFood();
+                AddReward(1f);
 
-                    }
-
-                }
             }
+
         }
       //  AddReward(-1f / MaxStep);
     }
@@ -124,25 +122,24 @@ public class ImitationFoodAgent : Agent
             case +1: discreteActions[0] = 2; break;
         }
 
+
         switch (Mathf.RoundToInt(Input.GetAxisRaw("Vertical")))
         {
             case -1: discreteActions[1] = 1; break;
-            case 0: discreteActions[1] = 0; break;
+            case  0: discreteActions[1] = 0; break;
             case +1: discreteActions[1] = 2; break;
 
         }
 
         discreteActions[2] = Input.GetKey(KeyCode.E) ? 1 : 0; // Use Action
-
     }
 
     private void OnTriggerEnter(Collider other)
     {
 
-        if(rewardButton.CanUseButton() && other.TryGetComponent<RewardButton>(out RewardButton rewardButtonOther))
+        if(other.TryGetComponent<RewardButton>(out RewardButton rewardButtonOther))
         {
-            rewardButtonOther.UseButton();
-            SpawnFood();
+            rewardButtonOther.EnableUseButton(); 
         }
 
         if (other.TryGetComponent<Goal>(out Goal goal))
@@ -164,6 +161,15 @@ public class ImitationFoodAgent : Agent
     }
 
 
+    private void OnTriggerExit(Collider other)
+    {
+
+
+        if (other.TryGetComponent<RewardButton>(out RewardButton rewardButtonOther))
+        {
+            rewardButtonOther.DisableUseButton();
+        }
+    }
 
 
     void Penalize(float penalty = -1f)
@@ -182,9 +188,4 @@ public class ImitationFoodAgent : Agent
         EndEpisode();
 
     }
-
-
-
-
-
 }
