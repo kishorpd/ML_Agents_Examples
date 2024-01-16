@@ -1,6 +1,6 @@
 default_settings: null
 behaviors:
-  BasicMoveForce:
+  FoodAgentBehaviour:
     trainer_type: ppo
     hyperparameters:
       batch_size: 256
