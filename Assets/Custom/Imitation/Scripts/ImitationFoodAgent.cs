@@ -38,18 +38,18 @@ public class ImitationFoodAgent : Agent
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        sensor.AddObservation(rewardButton.CanUseButton() ? 1 : 0);
+        sensor.AddObservation(rewardButton.CanUseButton() ? 1 : 0); //1
 
         Vector3 dirToFoodButton = (rewardButton.transform.localPosition - transform.localPosition).normalized;
-        sensor.AddObservation(dirToFoodButton.x);
-        sensor.AddObservation(dirToFoodButton.z);
+        sensor.AddObservation(dirToFoodButton.x); //1
+        sensor.AddObservation(dirToFoodButton.z); //1
 
-        sensor.AddObservation(foodSpawner.HasFoodSpawned() ? 1 : 0);
+        sensor.AddObservation(foodSpawner.HasFoodSpawned() ? 1 : 0); //1
 
-        if (foodSpawner.HasFoodSpawned())
+        if (foodSpawner.HasFoodSpawned()) //2
         {
             Vector3 dirToFood = (foodSpawner.GetLastFoodTransform().localPosition - transform.localPosition).normalized;
-            sensor.AddObservation(dirToFood.x);
+            sensor.AddObservation(dirToFood.x); 
             sensor.AddObservation(dirToFood.z);
         }
         else
@@ -59,6 +59,8 @@ public class ImitationFoodAgent : Agent
             sensor.AddObservation(0f); // z
                                        // }
         }
+
+        //Total : 6
     }
 
     public void SpawnFood()
@@ -175,14 +177,14 @@ public class ImitationFoodAgent : Agent
     void Penalize(float penalty = -1f)
     {
         SetReward(penalty);
-        FloorMeshRenderer.material = loseMaterial;
+     //   FloorMeshRenderer.material = loseMaterial;
         EndEpisode();
     }
 
     void GiveRewards(float reward = 1f)
     {
         SetReward(1f);
-        FloorMeshRenderer.material = winMaterial;
+     //   FloorMeshRenderer.material = winMaterial;
         ResetButton();
 
         EndEpisode();
