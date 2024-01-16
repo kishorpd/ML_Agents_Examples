@@ -21,6 +21,12 @@ behaviors:
       extrinsic:
         gamma: 0.99
         strength: 1.0
+      gail:
+        gamma: 0.5
+        demo_path: Demos/FoodAgentDemos.demo
+      gail:
+        gamma: 0.5
+        demo_path: Demos/FoodAgentDemos.demo
     max_steps: 5000000
     time_horizon: 64
     summary_freq: 20000
