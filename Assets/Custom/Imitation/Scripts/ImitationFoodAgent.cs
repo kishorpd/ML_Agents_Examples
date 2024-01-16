@@ -96,18 +96,23 @@ public class ImitationFoodAgent : Agent
         float moveSpeed = 5f;
         rbAgent.velocity = addForce * moveSpeed + new Vector3(0, rbAgent.velocity.y, 0);
 
-        bool isUseButtonDown = actions.DiscreteActions[2] == 1;
-        if (isUseButtonDown)
+        bool bFoodSpawned = foodSpawner.HasFoodSpawned();
+
+        if (!bFoodSpawned)
         {
-            
-            if (rewardButton.CanUseButton())
+            bool isUseButtonDown = actions.DiscreteActions[2] == 1;
+            if (isUseButtonDown)
             {
-                rewardButton.UseButton();
-                SpawnFood();
-                AddReward(1f);
+            
+                if (rewardButton.CanUseButton())
+                {
+                    rewardButton.UseButton();
+                    SpawnFood();
+                    AddReward(1f);
+
+                }
 
             }
-
         }
       //  AddReward(-1f / MaxStep);
     }
@@ -138,7 +143,7 @@ public class ImitationFoodAgent : Agent
 
     private void OnTriggerEnter(Collider other)
     {
-
+       // if(rewardButton.CanUseButton())
         if(other.TryGetComponent<RewardButton>(out RewardButton rewardButtonOther))
         {
             rewardButtonOther.EnableUseButton(); 
@@ -186,6 +191,7 @@ public class ImitationFoodAgent : Agent
         SetReward(1f);
      //   FloorMeshRenderer.material = winMaterial;
         ResetButton();
+        foodSpawner.OnDisable();
 
         EndEpisode();
 

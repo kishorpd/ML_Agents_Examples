@@ -41,6 +41,11 @@ public class FoodSpawner : MonoBehaviour
         target.SetActive(true);
     }
 
+    public void OnDisable()
+    {
+        target.SetActive(false);
+    }
+
     public bool HasFoodSpawned()
     {
         return target.activeSelf;
