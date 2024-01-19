@@ -1378,6 +1378,7 @@ GameObject:
   - component: {fileID: 6873850504221165904}
   - component: {fileID: 4946149714078291821}
   - component: {fileID: 778666148814838657}
+  - component: {fileID: 8522096610536717983}
   m_Layer: 0
   m_Name: BasicAgent
   m_TagString: Untagged
@@ -1552,12 +1553,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4873989639906116837}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2902496c0120472b90269f94a0aec7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Record: 0
+  Record: 1
   NumStepsToRecord: 0
   DemonstrationName: SpaceShip1
   DemonstrationDirectory: Assets\Custom\Basic\Config\Demos
@@ -1573,8 +1574,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29126ff889deb3d4fb60bb5537ffa16b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 8323818080471412660}
+  target: {fileID: 1602411919168340703}
   lerpSpeed: 1
+--- !u!114 &8522096610536717983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4873989639906116837}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0164e4cbfa09e4b4aaa247039c193958, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 3125645914896994095}
+  rotationSpeed: 5
 --- !u!1 &5486969926594314655
 GameObject:
   m_ObjectHideFlags: 0
@@ -2355,8 +2370,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7601562551459894832}
   - {fileID: 1602411919168340703}
+  - {fileID: 7601562551459894832}
   - {fileID: 5721927783170018934}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
