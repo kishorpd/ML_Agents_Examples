@@ -354,7 +354,7 @@ public class GoalAgent3DForce : Agent
     {
 
         //targetTransform.localPosition = new Vector3(Random.Range(-7,7), 3, Random.Range(-5,2f));
-        targetTransform.localPosition = new Vector3(Random.Range(6, 8), 1, Random.Range(-4,1f));
+        targetTransform.localPosition = new Vector3(Random.Range(-6, 8), 1, Random.Range(-4,1f));
         //targetTransform.localPosition = new Vector3(Random.Range(-rangeReward, rangeReward), 1, Random.Range(-4,1f));
 
       //  targetTransform.localPosition = new Vector3(-rangeReward, 1, Random.Range(-5, 1.5f));
