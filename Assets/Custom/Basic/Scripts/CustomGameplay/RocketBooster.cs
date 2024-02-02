@@ -14,12 +14,24 @@ public class RocketBooster : MonoBehaviour
     }
 
 
-    public bool isUp = true;
     public bool bInput = false;
+
+    bool positive = true;
 
     private void Update()
     {
-        bInput = (Input.GetKey(isUp ? KeyCode.J : KeyCode.L));
+        bInput = false;
+        //bInput = (Input.GetKey(KeyCode.J : KeyCode.L));
+        if (Input.GetKey(KeyCode.J))
+        {
+            bInput = true;
+            positive = false;
+        }
+        if(Input.GetKey(KeyCode.L))
+        {
+            bInput = true;
+            positive = true;
+        }
     }
 
     private void FixedUpdate()
@@ -40,7 +52,7 @@ public class RocketBooster : MonoBehaviour
         Vector3 boosterForward = -transform.forward;
 
         // Apply force to the target Rigidbody along the booster's forward direction
-        targetRigidbody.AddForce(boosterForward * localThrust * thrust, ForceMode.Impulse);
+        targetRigidbody.AddForce(boosterForward * localThrust * thrust*(positive? 1 : -1), ForceMode.Impulse);
     }
 
 }
