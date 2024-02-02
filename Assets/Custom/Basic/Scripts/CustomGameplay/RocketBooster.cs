@@ -5,7 +5,6 @@ public class RocketBooster : MonoBehaviour
 {
     public float localThrust = 1f; // Adjust the force magnitude as needed
 
-    public Transform referencePoint; // Assign the reference point in the Inspector
     private Rigidbody targetRigidbody;
 
     private void Start()
@@ -27,7 +26,7 @@ public class RocketBooster : MonoBehaviour
     {
         if(bInput)
         {
-         //   AddForceOrTorque(1);
+            AddForceOrTorque(1);
         }
     }
 
@@ -38,9 +37,10 @@ public class RocketBooster : MonoBehaviour
     {
 
         // Calculate the booster's forward direction
-        Vector3 boosterForward = transform.forward;
+        Vector3 boosterForward = -transform.forward;
 
         // Apply force to the target Rigidbody along the booster's forward direction
-        targetRigidbody.AddForce(boosterForward * localThrust * thrust, ForceMode.Force);
+        targetRigidbody.AddForce(boosterForward * localThrust * thrust, ForceMode.Impulse);
     }
+
 }

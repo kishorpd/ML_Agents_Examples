@@ -49,10 +49,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39c79c016f4c19f4c96bf1aaa9ee3f7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thrust: 10
-  referencePoint: {fileID: 0}
-  isUp: 0
-  rotationSpeed: 30
+  localThrust: 1
+  isUp: 1
+  bInput: 0
 --- !u!54 &6810004069761230319
 Rigidbody:
   m_ObjectHideFlags: 0
