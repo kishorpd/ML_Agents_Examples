@@ -6,37 +6,52 @@ public class RocketBooster : MonoBehaviour
     public float localThrust = 1f; // Adjust the force magnitude as needed
 
     private Rigidbody targetRigidbody;
+    public GameObject debugMesh;
+    Vector3 debugScale = Vector3.zero;
+
 
     private void Start()
     {
         // Get the target Rigidbody (attach this script to the RocketBooster)
         targetRigidbody = GetComponent<Rigidbody>();
+        debugScale = debugMesh.transform.localScale;
     }
 
 
     public bool bInput = false;
 
-    bool positive = true;
+   // bool positive = true;
 
     private void Update()
     {
         bInput = false;
         //bInput = (Input.GetKey(KeyCode.J : KeyCode.L));
-        if (Input.GetKey(KeyCode.J))
+        localThrust = Input.GetAxis("Horizontal");
+        UpdateDebugMesh();
+        //  positive = localThrust > 0f;
+
+
+    }
+
+
+    private void OnDrawGizmos()
+    {
+
+      //  debugScale = debugMesh.transform.localScale;
+       // UpdateDebugMesh();
+    }
+
+    void UpdateDebugMesh()
+    {
+        if (debugMesh != null)
         {
-            bInput = true;
-            positive = false;
-        }
-        if(Input.GetKey(KeyCode.L))
-        {
-            bInput = true;
-            positive = true;
+            debugMesh.transform.localScale = new Vector3(debugScale.x, debugScale.y, -localThrust);
         }
     }
 
     private void FixedUpdate()
     {
-        if(bInput)
+        //if(bInput)
         {
             AddForceOrTorque(1);
         }
@@ -52,7 +67,7 @@ public class RocketBooster : MonoBehaviour
         Vector3 boosterForward = -transform.forward;
 
         // Apply force to the target Rigidbody along the booster's forward direction
-        targetRigidbody.AddForce(boosterForward * localThrust * thrust*(positive? 1 : -1), ForceMode.Impulse);
+        targetRigidbody.AddForce(boosterForward * localThrust * thrust, ForceMode.Impulse);
     }
 
 }
