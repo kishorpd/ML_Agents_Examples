@@ -21,7 +21,8 @@ public class DroneAgent : Agent
 
     public override void OnEpisodeBegin()
     {
-       // transform.localPosition = Vector3.zero;
+        // transform.localPosition = Vector3.zero;
+        localGoal.Default();
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -38,7 +39,6 @@ public class DroneAgent : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
-
         for (int i = 0; i < boosters.Count; i++)
         {
             boosters[i].localThrust = actions.ContinuousActions[i];
