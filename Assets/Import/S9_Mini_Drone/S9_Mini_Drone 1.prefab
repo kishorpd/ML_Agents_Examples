@@ -1572,6 +1572,7 @@ GameObject:
   - component: {fileID: 8306810443197775651}
   - component: {fileID: 7810214258051606710}
   - component: {fileID: 7301341803875429179}
+  - component: {fileID: 6145171032955858881}
   m_Layer: 10
   m_Name: S9_Mini_Drone 1
   m_TagString: Untagged
@@ -1677,7 +1678,7 @@ MonoBehaviour:
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
-  m_BehaviorType: 0
+  m_BehaviorType: 1
   m_BehaviorName: DroneMove
   TeamId: 0
   m_UseChildSensors: 1
@@ -1701,11 +1702,27 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
   targetTransform: {fileID: 0}
-  localGoal: {fileID: 0}
   winMaterial: {fileID: 0}
   loseMaterial: {fileID: 0}
   FloorMeshRenderer: {fileID: 0}
   boosters: []
+  rangeH: 1
+  rangeV: 1
+--- !u!114 &6145171032955858881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6869461460014694007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 5
+  DecisionStep: 0
+  TakeActionsBetweenDecisions: 1
 --- !u!1 &6893852970110120656
 GameObject:
   m_ObjectHideFlags: 0
