@@ -11,13 +11,17 @@ public class DroneAgent : Agent
 
     [SerializeField] private Transform targetTransform;
 
-    [SerializeField] Goal localGoal;
+    Goal localGoal;
 
     [SerializeField] private Material winMaterial;
     [SerializeField] private Material loseMaterial;
     [SerializeField] private MeshRenderer FloorMeshRenderer;
     public List<RocketBooster> boosters;
 
+    void Start()
+    {
+        localGoal = targetTransform.GetComponent<Goal>();
+    }
 
     public override void OnEpisodeBegin()
     {
