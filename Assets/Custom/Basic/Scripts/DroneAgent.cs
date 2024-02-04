@@ -27,7 +27,19 @@ public class DroneAgent : Agent
     {
         // transform.localPosition = Vector3.zero;
         localGoal.Default();
+        ChangeRewardPosition();
     }
+
+
+
+    public float rangeH = 1;
+    public float rangeV = 1;
+    void ChangeRewardPosition()
+    {
+
+        targetTransform.localPosition = new Vector3(Random.Range(-7, 7), Random.Range(1, 4f), Random.Range(-5, 2f));
+    }
+
 
     public override void CollectObservations(VectorSensor sensor)
     {
@@ -62,6 +74,8 @@ public class DroneAgent : Agent
         if (other.TryGetComponent<Wall>(out Wall wall))
         {
             SetReward(-1f);
+            transform.localPosition = Vector3.zero;
+
             localGoal.Lost();
             FloorMeshRenderer.material = loseMaterial;
             EndEpisode();
@@ -70,7 +84,7 @@ public class DroneAgent : Agent
 
     void DelayedEndEpisode()
     {
-        Invoke("EndEpisode", 1);
+        Invoke("EndEpisode", 6);
     }
 
     void OnTriggerStay(Collider other)
