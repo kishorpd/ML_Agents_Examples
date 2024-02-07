@@ -9,6 +9,8 @@ public class RocketBooster : MonoBehaviour
     public GameObject debugMesh;
     Vector3 debugScale = Vector3.zero;
 
+    bool bIsPositiveOnly = true;
+
 
     private void Start()
     {
@@ -24,9 +26,9 @@ public class RocketBooster : MonoBehaviour
 
     private void Update()
     {
-        bInput = false;
+     //   bInput = false;
         //bInput = (Input.GetKey(KeyCode.J : KeyCode.L));
-        localThrust = Input.GetAxis("Horizontal");
+       // localThrust = Input.GetAxis("Horizontal");
         UpdateDebugMesh();
         //  positive = localThrust > 0f;
 
@@ -45,7 +47,9 @@ public class RocketBooster : MonoBehaviour
     {
         if (debugMesh != null)
         {
-            debugMesh.transform.localScale = new Vector3(debugScale.x, debugScale.y, -localThrust);
+            debugMesh.transform.localScale = new Vector3(1, 1,
+                bIsPositiveOnly ? -Mathf.Abs(localThrust) : localThrust
+                );
         }
     }
 
@@ -65,9 +69,9 @@ public class RocketBooster : MonoBehaviour
 
         // Calculate the booster's forward direction
         Vector3 boosterForward = -transform.forward;
-
+        float finalThrust = bIsPositiveOnly ? -Mathf.Abs(localThrust) : localThrust;
         // Apply force to the target Rigidbody along the booster's forward direction
-        targetRigidbody.AddForce(boosterForward * localThrust * thrust, ForceMode.Impulse);
+        targetRigidbody.AddForce(-boosterForward * localThrust * finalThrust, ForceMode.Impulse);
     }
 
 }
