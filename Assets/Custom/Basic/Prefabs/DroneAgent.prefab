@@ -1408,6 +1408,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5460988251474351559}
     - target: {fileID: 7810214258051606710, guid: 88f996305be21674e9fad3158ed99b6e, type: 3}
+      propertyPath: m_BehaviorType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7810214258051606710, guid: 88f996305be21674e9fad3158ed99b6e, type: 3}
       propertyPath: m_BrainParameters.VectorActionSpaceType
       value: 1
       objectReference: {fileID: 0}
