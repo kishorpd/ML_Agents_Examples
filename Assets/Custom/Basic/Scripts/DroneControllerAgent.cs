@@ -10,11 +10,13 @@ using UnityEngine.InputSystem;
 
 public class DroneControllerAgent : Agent
 {
-    public InputManager droneInputManager;
+    [SerializeField] private InputManager droneInputManager;
 
     [SerializeField] private Transform targetTransform;
 
     Goal localGoal;
+
+    [SerializeField] private GameObject DebugInCubeElem;
 
     [SerializeField] private Material winMaterial;
     [SerializeField] private Material loseMaterial;
@@ -72,7 +74,9 @@ public class DroneControllerAgent : Agent
 
     private void OnTriggerExit(Collider other)
     {
+        Debug.LogError("EXIT DETECTED!");
         bIsStillInTrigger = false;
+        DebugInCubeElem.SetActive(bIsStillInTrigger);
         if (GameObject.ReferenceEquals(localGoal.gameObject, other.gameObject))
         {
             Penalize();
@@ -120,6 +124,9 @@ public class DroneControllerAgent : Agent
         if (bIsStillInTrigger)
         {
             AddReward(3f);
+            ChangeRewardPosition();
+            bIsStillInTrigger = false;
+            DebugInCubeElem.SetActive(bIsStillInTrigger);
         }
     }
 
@@ -131,7 +138,11 @@ public class DroneControllerAgent : Agent
 
     void OnTriggerStay(Collider other)
     {
-        bIsStillInTrigger = true;
+        if(!bIsStillInTrigger)
+        {
+            bIsStillInTrigger = true;
+            DebugInCubeElem.SetActive(bIsStillInTrigger);
+        }
         AddReward(0.1f);
     }
 
