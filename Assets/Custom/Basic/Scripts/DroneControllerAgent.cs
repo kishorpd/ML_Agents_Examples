@@ -23,7 +23,9 @@ public class DroneControllerAgent : Agent
     [SerializeField] private Material defaultMaterial;
     [SerializeField] private MeshRenderer FloorMeshRenderer;
 
-    bool bIsStillInTrigger = false;
+    float timeSpentInTrigger = 0;
+    bool bEntryRewardGiven = false;
+
 
     void Start()
     {
@@ -33,7 +35,11 @@ public class DroneControllerAgent : Agent
 
     public override void OnEpisodeBegin()
     {
+        timeSpentInTrigger = 0;
+        ChangeRewardPosition();
+        DebugInCubeElem.transform.localScale = new Vector3 (1, 1, 0);
         transform.localPosition = Vector3.one;
+        bEntryRewardGiven = false;
     }
 
 
@@ -41,18 +47,20 @@ public class DroneControllerAgent : Agent
     {
         sensor.AddObservation(transform.localPosition);
         sensor.AddObservation(targetTransform.localPosition);
-        sensor.AddObservation(bIsStillInTrigger);
+        sensor.AddObservation(timeSpentInTrigger);
     }
 
 
+    Vector2 cyclic = new Vector2(0,0);
     public override void OnActionReceived(ActionBuffers actions)
     {
-        Vector2 cyclic = new Vector2(
-            actions.ContinuousActions[0],
-            actions.ContinuousActions[1]);
+        // Vector2 cyclic = new Vector2(
+        //     actions.ContinuousActions[0],
+        //     actions.ContinuousActions[1]);
 
-        float pedals = actions.ContinuousActions[2];
-        float throttle = actions.ContinuousActions[3];
+
+        float pedals = actions.ContinuousActions[0];
+        float throttle = actions.ContinuousActions[1];
 
         droneInputManager.Inputs(cyclic, pedals, throttle);
     }
@@ -64,20 +72,9 @@ public class DroneControllerAgent : Agent
 
         if (GameObject.ReferenceEquals(localGoal.gameObject, other.gameObject))
         {
-            GiveReward();
+            if(!bEntryRewardGiven) GiveReward();
         }
         if (other.TryGetComponent<Wall>(out Wall wall))
-        {
-            Penalize();
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        Debug.LogError("EXIT DETECTED!");
-        bIsStillInTrigger = false;
-        DebugInCubeElem.SetActive(bIsStillInTrigger);
-        if (GameObject.ReferenceEquals(localGoal.gameObject, other.gameObject))
         {
             Penalize();
         }
@@ -95,8 +92,8 @@ public class DroneControllerAgent : Agent
     void GiveReward()
     {
         SetReward(1f);
+        bEntryRewardGiven = true;
         localGoal.Won();
-        ChangeRewardPosition();
         //Debug.LogError("WON!");
 
         FloorMeshRenderer.material = winMaterial;
@@ -114,19 +111,15 @@ public class DroneControllerAgent : Agent
     }
     void DelayedEndEpisode()
     {
-
         Invoke("EndEpisode", 6);
-        Invoke("DelayedReward", 6);
+        Invoke("DelayedReward", 5.5f);
     }
 
     void DelayedReward()
     {
-        if (bIsStillInTrigger)
+        if (timeSpentInTrigger > 5)
         {
             AddReward(3f);
-            ChangeRewardPosition();
-            bIsStillInTrigger = false;
-            DebugInCubeElem.SetActive(bIsStillInTrigger);
         }
     }
 
@@ -138,11 +131,8 @@ public class DroneControllerAgent : Agent
 
     void OnTriggerStay(Collider other)
     {
-        if(!bIsStillInTrigger)
-        {
-            bIsStillInTrigger = true;
-            DebugInCubeElem.SetActive(bIsStillInTrigger);
-        }
+        timeSpentInTrigger += Time.deltaTime;
+        DebugInCubeElem.transform.localScale = new Vector3(1, 1, 6/timeSpentInTrigger);
         AddReward(0.1f);
     }
 
