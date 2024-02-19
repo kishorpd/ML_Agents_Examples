@@ -20,11 +20,13 @@ namespace Drone.Scripts.GamePlay
 
         #region Main Methods
 
-        // Update is called once per frame
-        void Update()
+        public void Inputs(Vector2 directionalTiltMove, float turn, float upDown)
         {
-        
+            _cyclic = directionalTiltMove;
+            _pedals = turn;
+            _throttle = upDown;
         }
+
 
         #endregion
 
