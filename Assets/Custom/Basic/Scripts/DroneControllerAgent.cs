@@ -1,6 +1,8 @@
 using Drone.Scripts.GamePlay;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using Unity.Collections;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
@@ -23,19 +25,33 @@ public class DroneControllerAgent : Agent
     [SerializeField] private Material defaultMaterial;
     [SerializeField] private MeshRenderer FloorMeshRenderer;
 
-    float timeSpentInTrigger = 0;
+    float timeSpentInTrigger = 1;
+    float timeSpentAfterBeingInTrigger = 1;
     bool bEntryRewardGiven = false;
 
 
-    void Start()
+    [Unity.Collections.ReadOnly]
+    [SerializeField]
+    private float TIME_TO_STAY_IN_TRIGGER = 6;
+    [Unity.Collections.ReadOnly]
+    [SerializeField]
+    private float TIME_TO_START_FROM= 1;
+
+    void Init()
     {
-        localGoal = targetTransform.GetComponent<Goal>();
-        defaultMaterial = FloorMeshRenderer.material;
+        if(localGoal == null)
+        {
+            localGoal = targetTransform.GetComponent<Goal>();
+            Debug.LogError(" localGoal  :" + (localGoal == null));
+            defaultMaterial = FloorMeshRenderer.material;
+        }
     }
 
     public override void OnEpisodeBegin()
     {
-        timeSpentInTrigger = 0;
+        Init();
+        timeSpentInTrigger = TIME_TO_START_FROM;
+        timeSpentAfterBeingInTrigger = 0;
         ChangeRewardPosition();
         DebugInCubeElem.transform.localScale = new Vector3 (1, 1, 0);
         transform.localPosition = Vector3.one;
@@ -69,10 +85,10 @@ public class DroneControllerAgent : Agent
 
     private void OnTriggerEnter(Collider other)
     {
-
-        if (GameObject.ReferenceEquals(localGoal.gameObject, other.gameObject))
+        //if (GameObject.ReferenceEquals(localGoal.gameObject, other.gameObject))
+        if (other.TryGetComponent<Goal>(out Goal goal))
         {
-            if(!bEntryRewardGiven) GiveReward();
+            if (!bEntryRewardGiven) GiveReward();
         }
         if (other.TryGetComponent<Wall>(out Wall wall))
         {
@@ -91,13 +107,13 @@ public class DroneControllerAgent : Agent
 
     void GiveReward()
     {
-        SetReward(1f);
+        AddReward(1f);
         bEntryRewardGiven = true;
         localGoal.Won();
         //Debug.LogError("WON!");
 
         FloorMeshRenderer.material = winMaterial;
-        DelayedEndEpisode();
+   //     DelayedEndEpisode();
     }
 
     void Penalize()
@@ -111,16 +127,27 @@ public class DroneControllerAgent : Agent
     }
     void DelayedEndEpisode()
     {
-        Invoke("EndEpisode", 6);
-        Invoke("DelayedReward", 5.5f);
+  //      Invoke("EndEpisode", TIME_TO_STAY_IN_TRIGGER);
+   //     Invoke("DelayedReward", 5.5f);
     }
 
-    void DelayedReward()
+    private void Update()
     {
-        if (timeSpentInTrigger > 5)
+        if(timeSpentInTrigger > TIME_TO_START_FROM)
         {
-            AddReward(3f);
+            timeSpentAfterBeingInTrigger += Time.deltaTime;
+
+            if(timeSpentAfterBeingInTrigger > TIME_TO_STAY_IN_TRIGGER)
+                EndEpisode();// starts from 0 to 6
+
+            if (timeSpentInTrigger > TIME_TO_STAY_IN_TRIGGER)// starts from 1 to 6
+            {
+                Debug.LogError(" ------------- DelayedReward(after 5) ----------------");
+                AddReward(3f);
+                EndEpisode();
+            }
         }
+
     }
 
     void ResetMeshRenderer()
@@ -131,9 +158,16 @@ public class DroneControllerAgent : Agent
 
     void OnTriggerStay(Collider other)
     {
-        timeSpentInTrigger += Time.deltaTime;
-        DebugInCubeElem.transform.localScale = new Vector3(1, 1, 6/timeSpentInTrigger);
-        AddReward(0.1f);
+
+
+        //if (GameObject.ReferenceEquals(localGoal.gameObject, other.gameObject))
+        if (other.TryGetComponent<Goal>(out Goal goal))
+        {
+            timeSpentInTrigger += Time.deltaTime;
+            float newScale = timeSpentInTrigger / TIME_TO_STAY_IN_TRIGGER;
+            DebugInCubeElem.transform.localScale = new Vector3(newScale, 1, newScale);
+            AddReward(0.1f);
+        }
     }
 
 }

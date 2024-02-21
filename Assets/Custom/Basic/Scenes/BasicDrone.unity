@@ -21251,7 +21251,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.12, y: 1.42, z: 0.23}
-  m_LocalScale: {x: 0.00830531, y: 0.004271015, z: 0.00830531}
+  m_LocalScale: {x: 0.0036560807, y: 0.0018801437, z: 0.0036560807}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5825408850651570383}
@@ -38212,7 +38212,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -6.13, y: 2.88, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.44021, y: 0.44021, z: 0.44021}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4153336789114302854}
@@ -38328,7 +38328,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4153336787775402914}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18ab176fc55a7fa4996d04f54fed5fa6, type: 3}
   m_Name: 
@@ -38344,6 +38344,8 @@ MonoBehaviour:
   loseMaterial: {fileID: 2100000, guid: 57c6ad7a7a8820a4fb97712c41f68ef4, type: 2}
   defaultMaterial: {fileID: 0}
   FloorMeshRenderer: {fileID: 411187003863797710}
+  TIME_TO_STAY_IN_TRIGGER: 6
+  TIME_TO_START_FROM: 1
   rangeH: 1
   rangeV: 1
 --- !u!114 &4153336787775402930
@@ -38412,7 +38414,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1028806417}
   lerpSpeed: 1
-  bIsLocal: 1
+  bIsLocal: 0
 --- !u!1 &4153336788275743400
 GameObject:
   m_ObjectHideFlags: 0
