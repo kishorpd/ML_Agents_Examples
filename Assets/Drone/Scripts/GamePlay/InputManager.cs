@@ -20,11 +20,11 @@ namespace Drone.Scripts.GamePlay
 
         #region Main Methods
 
-        public void Inputs(Vector2 directionalTiltMove, float turn, float upDown)
+        public void Inputs(Vector2 directionalTiltMove, float turn, float upDown, float inputPower)
         {
-            _cyclic = directionalTiltMove;
-            _pedals = turn;
-            _throttle = upDown;
+            _cyclic = directionalTiltMove * inputPower;
+            _pedals = turn * inputPower;
+            _throttle = upDown * inputPower;
         }
 
 

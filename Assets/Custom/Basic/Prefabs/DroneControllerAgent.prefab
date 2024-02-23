@@ -69735,7 +69735,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 7
+    VectorObservationSize: 9
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 3
@@ -69771,11 +69771,13 @@ MonoBehaviour:
   MaxStep: 0
   droneInputManager: {fileID: 8078049387444026479}
   targetTransform: {fileID: 3752792131028404601}
+  rbDrone: {fileID: 0}
   DebugInCubeElem: {fileID: 7992184154189453233}
   winMaterial: {fileID: 2100000, guid: e7b2ba5733631354da52b105583d1cb7, type: 2}
   loseMaterial: {fileID: 2100000, guid: 57c6ad7a7a8820a4fb97712c41f68ef4, type: 2}
   defaultMaterial: {fileID: 0}
   FloorMeshRenderer: {fileID: 6334675310815140183}
+  INPUT_POWER: 0.5
   TIME_TO_STAY_IN_TRIGGER: 6
   TIME_TO_START_FROM: 1
   rangeH: 1

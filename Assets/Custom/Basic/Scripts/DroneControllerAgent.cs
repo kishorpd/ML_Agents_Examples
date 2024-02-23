@@ -15,6 +15,7 @@ public class DroneControllerAgent : Agent
     [SerializeField] private InputManager droneInputManager;
 
     [SerializeField] private Transform targetTransform;
+    [SerializeField] private Rigidbody rbDrone;
 
     Goal localGoal;
 
@@ -30,6 +31,9 @@ public class DroneControllerAgent : Agent
     bool bEntryRewardGiven = false;
 
 
+    //[Unity.Collections.ReadOnly]
+    [SerializeField]
+    private float INPUT_POWER = .5f;
     [Unity.Collections.ReadOnly]
     [SerializeField]
     private float TIME_TO_STAY_IN_TRIGGER = 6;
@@ -42,8 +46,8 @@ public class DroneControllerAgent : Agent
         if(localGoal == null)
         {
             localGoal = targetTransform.GetComponent<Goal>();
-            Debug.LogError(" localGoal  :" + (localGoal == null));
             defaultMaterial = FloorMeshRenderer.material;
+            rbDrone = GetComponent<Rigidbody>();
         }
     }
 
@@ -53,32 +57,38 @@ public class DroneControllerAgent : Agent
         timeSpentInTrigger = TIME_TO_START_FROM;
         timeSpentAfterBeingInTrigger = 0;
         ChangeRewardPosition();
-        DebugInCubeElem.transform.localScale = new Vector3 (1, 1, 0);
-        transform.localPosition = Vector3.one;
+        DebugInCubeElem.transform.localScale = new Vector3 (0, 1, 0);
+     //   transform.localPosition = Vector3.one;
         bEntryRewardGiven = false;
     }
 
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        sensor.AddObservation(transform.localPosition);
-        sensor.AddObservation(targetTransform.localPosition);
-        sensor.AddObservation(timeSpentInTrigger);
+        sensor.AddObservation(transform.localPosition);//3
+        sensor.AddObservation(targetTransform.localPosition);//3
+        sensor.AddObservation(timeSpentInTrigger);//1
+        sensor.AddObservation(rbDrone.velocity.magnitude);//1
+        sensor.AddObservation(Vector3.Distance(
+                transform.localPosition,
+                targetTransform.localPosition
+                ));//1
+        //Total : 9
     }
 
 
-    Vector2 cyclic = new Vector2(0,0);
+   // Vector2 tiltMove = new Vector2(0,0);
     public override void OnActionReceived(ActionBuffers actions)
     {
-        // Vector2 cyclic = new Vector2(
-        //     actions.ContinuousActions[0],
-        //     actions.ContinuousActions[1]);
+         Vector2 tiltMove = new Vector2(
+             actions.ContinuousActions[0],
+             actions.ContinuousActions[1]);
 
 
-        float pedals = actions.ContinuousActions[0];
-        float throttle = actions.ContinuousActions[1];
+        float UpDown = actions.ContinuousActions[2];
+        //float turn = actions.ContinuousActions[3];
 
-        droneInputManager.Inputs(cyclic, pedals, throttle);
+        droneInputManager.Inputs(tiltMove, 0, UpDown, INPUT_POWER);
     }
 
 
@@ -93,6 +103,14 @@ public class DroneControllerAgent : Agent
         if (other.TryGetComponent<Wall>(out Wall wall))
         {
             Penalize();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.TryGetComponent<Goal>(out Goal goal))
+        {
+            if (bEntryRewardGiven) Penalize();
         }
     }
 
@@ -138,12 +156,15 @@ public class DroneControllerAgent : Agent
             timeSpentAfterBeingInTrigger += Time.deltaTime;
 
             if(timeSpentAfterBeingInTrigger > TIME_TO_STAY_IN_TRIGGER)
+            {
+                AddReward(-2);
                 EndEpisode();// starts from 0 to 6
+            }
 
             if (timeSpentInTrigger > TIME_TO_STAY_IN_TRIGGER)// starts from 1 to 6
             {
                 Debug.LogError(" ------------- DelayedReward(after 5) ----------------");
-                AddReward(3f);
+                AddReward(10 * (timeSpentInTrigger - TIME_TO_STAY_IN_TRIGGER));
                 EndEpisode();
             }
         }
@@ -166,7 +187,10 @@ public class DroneControllerAgent : Agent
             timeSpentInTrigger += Time.deltaTime;
             float newScale = timeSpentInTrigger / TIME_TO_STAY_IN_TRIGGER;
             DebugInCubeElem.transform.localScale = new Vector3(newScale, 1, newScale);
-            AddReward(0.1f);
+            AddReward(0.1f * Vector3.Distance(
+                transform.localPosition,
+                targetTransform.localPosition
+                ));
         }
     }
 
