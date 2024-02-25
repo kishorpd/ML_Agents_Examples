@@ -32,8 +32,8 @@ public class DroneControllerAgent : Agent
 
 
     //[Unity.Collections.ReadOnly]
-    [SerializeField]
-    private float INPUT_POWER = .4f;
+    //[SerializeField]
+    private float INPUT_POWER = 0.9f;
     [Unity.Collections.ReadOnly]
     [SerializeField]
     private float TIME_TO_STAY_IN_TRIGGER = 6;
@@ -122,8 +122,8 @@ public class DroneControllerAgent : Agent
     public float rangeV = 1;
     void ChangeRewardPosition()
     {
-        targetTransform.localPosition = new Vector3(Random.Range(-5, 5), Random.Range(1, 3f), Random.Range(-3, 2f));
-        // targetTransform.localPosition = new Vector3(Random.Range(-7, 7), Random.Range(1, 4f), Random.Range(-5, 2f));
+      //  targetTransform.localPosition = new Vector3(Random.Range(-5, 5), Random.Range(1, 3f), Random.Range(-3, 2f));
+        targetTransform.localPosition = new Vector3(Random.Range(-7, 7), Random.Range(1, 4f), Random.Range(-5, 2f));
     }
 
     void GiveReward()
@@ -170,6 +170,7 @@ public class DroneControllerAgent : Agent
                 AddReward(10 * (timeSpentInTrigger - TIME_TO_STAY_IN_TRIGGER));
                 EndEpisode();
             }
+
         }
 
     }
@@ -193,11 +194,14 @@ public class DroneControllerAgent : Agent
             float newScale = timeSpentInTrigger / TIME_TO_STAY_IN_TRIGGER;
             DebugInCubeElem.transform.localScale = new Vector3(newScale, 1, newScale);
 
-            
+            if (rbDrone.velocity.magnitude < 0.1f) AddReward(0.01f);
+            else AddReward(-0.01f);
 
-            AddReward(0.4f * Vector3.Distance(
-                transform.localPosition,
-                targetTransform.localPosition
+            AddReward(0.001f * (
+                    1 / Vector3.Distance(
+                    transform.localPosition,
+                    targetTransform.localPosition
+                    )
                 ));
         }
     }
