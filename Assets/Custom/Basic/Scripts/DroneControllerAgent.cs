@@ -33,7 +33,7 @@ public class DroneControllerAgent : Agent
 
     //[Unity.Collections.ReadOnly]
     [SerializeField]
-    private float INPUT_POWER = .5f;
+    private float INPUT_POWER = .4f;
     [Unity.Collections.ReadOnly]
     [SerializeField]
     private float TIME_TO_STAY_IN_TRIGGER = 6;
@@ -68,12 +68,13 @@ public class DroneControllerAgent : Agent
         sensor.AddObservation(transform.localPosition);//3
         sensor.AddObservation(targetTransform.localPosition);//3
         sensor.AddObservation(timeSpentInTrigger);//1
+        sensor.AddObservation(timeSpentAfterBeingInTrigger);//1
         sensor.AddObservation(rbDrone.velocity.magnitude);//1
         sensor.AddObservation(Vector3.Distance(
                 transform.localPosition,
                 targetTransform.localPosition
                 ));//1
-        //Total : 9
+        //Total : 10
     }
 
 
@@ -108,10 +109,12 @@ public class DroneControllerAgent : Agent
 
     private void OnTriggerExit(Collider other)
     {
+        /*
         if (other.TryGetComponent<Goal>(out Goal goal))
         {
             if (bEntryRewardGiven) Penalize();
         }
+         */
     }
 
 
@@ -157,8 +160,8 @@ public class DroneControllerAgent : Agent
 
             if(timeSpentAfterBeingInTrigger > TIME_TO_STAY_IN_TRIGGER)
             {
-                AddReward(-2);
-                EndEpisode();// starts from 0 to 6
+                AddReward(-8);
+                Penalize();// starts from 0 to 6
             }
 
             if (timeSpentInTrigger > TIME_TO_STAY_IN_TRIGGER)// starts from 1 to 6
@@ -173,9 +176,11 @@ public class DroneControllerAgent : Agent
 
     void ResetMeshRenderer()
     {
-
         FloorMeshRenderer.material = defaultMaterial;
     }
+
+
+    
 
     void OnTriggerStay(Collider other)
     {
@@ -187,7 +192,10 @@ public class DroneControllerAgent : Agent
             timeSpentInTrigger += Time.deltaTime;
             float newScale = timeSpentInTrigger / TIME_TO_STAY_IN_TRIGGER;
             DebugInCubeElem.transform.localScale = new Vector3(newScale, 1, newScale);
-            AddReward(0.1f * Vector3.Distance(
+
+            
+
+            AddReward(0.4f * Vector3.Distance(
                 transform.localPosition,
                 targetTransform.localPosition
                 ));
