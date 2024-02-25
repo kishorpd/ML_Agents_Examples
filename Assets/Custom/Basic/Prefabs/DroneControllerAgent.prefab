@@ -17144,7 +17144,7 @@ MonoBehaviour:
   NoneMat: {fileID: 2100000, guid: 66f9d24c73a4b9f4b8caa4c15dc7099e, type: 2}
   WinMat: {fileID: 2100000, guid: 53422ac4d2d8d4147baf108ff9bcfeb9, type: 2}
   LoseMat: {fileID: 2100000, guid: d34b8005010d38b4eb15bf271e43dde9, type: 2}
-  meshRenderer: {fileID: 1694581455050797759}
+  meshRenderer: {fileID: 7944593833694748998}
   currentGoalState: 0
 --- !u!65 &4751534915606069522
 BoxCollider:
@@ -17165,7 +17165,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 400, y: 400, z: 400}
+  m_Size: {x: 320, y: 320, z: 320}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2062551711707300569
 GameObject:
@@ -52737,7 +52737,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0, w: -1}
   m_LocalPosition: {x: 0, y: 0, z: -0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.80555, y: 0.80555, z: 0.80555}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2884383312207192212}
@@ -70870,7 +70870,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.22, y: 1.02, z: 1.64}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.16, z: 0}
 --- !u!114 &4911723219173254193
 MonoBehaviour:
