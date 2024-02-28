@@ -1194,7 +1194,7 @@ MonoBehaviour:
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 5022602860645237092, guid: d89815e29f6f8884e9e2ab2001660e37, type: 3}
   m_InferenceDevice: 0
-  m_BehaviorType: 0
+  m_BehaviorType: 2
   m_BehaviorName: BasicMoveForce
   TeamId: 0
   m_UseChildSensors: 1
@@ -1311,6 +1311,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 8323818080471412660}
   lerpSpeed: 1
+  bIsLocal: 1
 --- !u!1 &5486969926594314655
 GameObject:
   m_ObjectHideFlags: 0
