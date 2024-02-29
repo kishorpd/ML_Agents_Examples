@@ -41,9 +41,6 @@ public class GoalAgent3DForce : Agent
     {
         rb = GetComponent<Rigidbody>();
         InitBoosters();
-        
-        
-        targetTransform.localPosition = new Vector3(Random.Range(-rangeH,rangeH), 0, -rangeV);
     }
     
     float forceX;

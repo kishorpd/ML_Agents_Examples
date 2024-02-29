@@ -21,6 +21,12 @@ behaviors:
       extrinsic:
         gamma: 0.99
         strength: 1.0
-    max_steps: 5000000
+      gail:
+        gamma: 0.5
+        demo_path: Config/Demos/SpaceShip1.demo
+    behavioral_cloning:
+      gamma: 0.5
+      demo_path: Config/Demos/SpaceShip1.demo
+    max_steps: 9000000000
     time_horizon: 64
     summary_freq: 20000
