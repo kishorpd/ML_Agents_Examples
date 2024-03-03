@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MeshGenerator : MonoBehaviour
 {
   
     Mesh mesh;
+    public List<GameObject> verticeGameObjects = new List<GameObject>();
 
-    Vector3[] vertices;
+    List<Vector3> vertices = new List<Vector3>();
+    //Vector3[] vertices;
     int[] triangles;
 
     // Use this for initialization
@@ -22,9 +25,28 @@ public class MeshGenerator : MonoBehaviour
 
 
 
+    void UpdateShape()
+    {
+        for (int i = 0; i < verticeGameObjects.Count; i++)
+        {
+            vertices[i] = (verticeGameObjects[i].transform.position);
+        }
+
+    }
+
+    private void UpdateVertices()
+    {
+        int i = 0;
+        foreach (var obj in verticeGameObjects)
+        {
+            mesh.vertices[i] = (obj.transform.position);
+        }
+    }
+
+
     void CreateShape()
     {
-
+        /*
         vertices = new Vector3[]
             {
 
@@ -34,6 +56,12 @@ public class MeshGenerator : MonoBehaviour
             new Vector3(1,0,1)  //3
 
             };
+         */
+
+        for(int i =0; i < verticeGameObjects.Count; i++) 
+        {
+            vertices.Add(verticeGameObjects[i].transform.position);
+        }
 
         triangles = new int[]
         {
@@ -41,16 +69,24 @@ public class MeshGenerator : MonoBehaviour
             1, 3, 2
         };
 
-
+        mesh.vertices = vertices.ToArray();
     }
 
     void UpdateMesh()
     { 
         mesh.Clear();
+        UpdateShape();
 
-        mesh.vertices = vertices;
+        mesh.vertices = vertices.ToArray();
+
         mesh.triangles = triangles;
 
         mesh.RecalculateNormals();
     }
+
+    private void Update()
+    {
+        UpdateMesh();
+    }
+
 }
