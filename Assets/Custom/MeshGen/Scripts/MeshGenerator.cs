@@ -66,9 +66,13 @@ public class MeshGenerator : MonoBehaviour
         triangles = new int[]
         {
             0, 1, 2,
-            1, 3, 2,
+            1, 3, 2, 
             2, 3, 4,
-            3, 5, 4
+            3, 5, 4,
+            6, 0, 7,
+            0, 2, 7,
+            7, 2, 8,
+            2, 4, 8
         };
 
         mesh.vertices = vertices.ToArray();
