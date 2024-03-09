@@ -13,7 +13,6 @@ public class MeshGenerator : MonoBehaviour
     //Vector3[] vertices;
     int[] triangles;
 
-    // Use this for initialization
     void Start()
     {
         mesh = new Mesh();
