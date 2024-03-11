@@ -2,96 +2,63 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-
 public class MeshGenerator : MonoBehaviour
 {
-  
-    Mesh mesh;
-    public List<GameObject> verticeGameObjects = new List<GameObject>();
 
-    List<Vector3> vertices = new List<Vector3>();
-    //Vector3[] vertices;
+    Mesh mesh;
+
+    Vector3[] vertices;
     int[] triangles;
 
+    public int xSize = 20;
+    public int zSize = 20;
+
+    // Use this for initialization
     void Start()
     {
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
 
         CreateShape();
-        UpdateMesh();
-    }
-
-
-
-    void UpdateShape()
-    {
-        for (int i = 0; i < verticeGameObjects.Count; i++)
-        {
-            vertices[i] = (verticeGameObjects[i].transform.position);
-        }
 
     }
-
-    private void UpdateVertices()
-    {
-        int i = 0;
-        foreach (var obj in verticeGameObjects)
-        {
-            mesh.vertices[i] = (obj.transform.position);
-        }
-    }
-
 
     void CreateShape()
-    {
-        /*
-        vertices = new Vector3[]
+    { 
+
+        vertices = new Vector3[(xSize + 1) * (zSize + 1)];
+
+        for (int i = 0, z = 0; z <= zSize; z++)
+        {
+
+        for (int x = 0; x <= xSize; x++)
             {
 
-            new Vector3(0,0,0), //0
-            new Vector3(0,0,1), //1
-            new Vector3(1,0,0), //2
-            new Vector3(1,0,1)  //3
-
-            };
-         */
-
-        for(int i =0; i < verticeGameObjects.Count; i++) 
-        {
-            vertices.Add(verticeGameObjects[i].transform.position);
+                vertices[i] = new Vector3(x, 0, z);
+                i++;
+            }
         }
 
-        triangles = new int[]
-        {
-            0, 1, 2,
-            1, 3, 2, 
-            2, 3, 4,
-            3, 5, 4,
-            6, 0, 7,
-            0, 2, 7,
-            7, 2, 8,
-            2, 4, 8
-        };
-
-        mesh.vertices = vertices.ToArray();
     }
 
-    void UpdateMesh()
-    { 
+void UpdateMesh()
+    {
         mesh.Clear();
-        UpdateShape();
 
-        mesh.vertices = vertices.ToArray();
-
+        mesh.vertices = vertices;
         mesh.triangles = triangles;
 
         mesh.RecalculateNormals();
     }
 
-    private void Update()
+    private void OnDrawGizmos()
     {
-        UpdateMesh();
-    }
+        if (vertices == null)
+            return;
 
+        for (int i = 0; i < vertices.Length; i++)
+        {
+            Gizmos.DrawSphere(vertices[i], .1f);
+        }
+    }
 }
