@@ -10,8 +10,8 @@ public class MeshGenerator : MonoBehaviour
     Vector3[] vertices;
     int[] triangles;
 
-    public int xSize = 20;
-    public int zSize = 20;
+    public int xSize = 30;
+    public int zSize = 30;
 
     // Use this for initialization
     void Start()
