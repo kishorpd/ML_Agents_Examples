@@ -23,6 +23,9 @@ public class MeshGenerator : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Create shape, in this case a grid
+    /// </summary>
     void CreateShape()
     { 
 
@@ -33,7 +36,6 @@ public class MeshGenerator : MonoBehaviour
 
         for (int x = 0; x <= xSize; x++)
             {
-
                 vertices[i] = new Vector3(x, 0, z);
                 i++;
             }
