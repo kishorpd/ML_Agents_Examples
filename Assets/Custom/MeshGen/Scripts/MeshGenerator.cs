@@ -31,7 +31,7 @@ public class MeshGenerator : MonoBehaviour
     /// <summary>
     /// Create shape, in this case a grid
     /// </summary>
-    IEnumerator CreateShape()
+    void CreateShape()
     { 
 
         vertices = new Vector3[(xSize + 1) * (zSize + 1)];
