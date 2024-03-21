@@ -19,7 +19,7 @@ public class MeshGenerator : MonoBehaviour
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
 
-        StartCoroutine(CreateShape());
+        CreateShape();
 
     }
 
