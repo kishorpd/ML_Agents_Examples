@@ -12,6 +12,7 @@ public class MeshGenerator : MonoBehaviour
 
     public int xSize = 30;
     public int zSize = 30;
+    public float height = 1;
 
     // Use this for initialization
     void Start()
@@ -32,16 +33,15 @@ public class MeshGenerator : MonoBehaviour
     /// Create shape, in this case a grid
     /// </summary>
     void CreateShape()
-    { 
-
+    {
         vertices = new Vector3[(xSize + 1) * (zSize + 1)];
 
         for (int i = 0, z = 0; z <= zSize; z++)
         {
 
-        for (int x = 0; x <= xSize; x++)
+            for (int x = 0; x <= xSize; x++)
             {
-                vertices[i] = new Vector3(x, 0, z);
+                vertices[i] = new Vector3(x, Random.Range(height,-height), z);
                 i++;
             }
         }
