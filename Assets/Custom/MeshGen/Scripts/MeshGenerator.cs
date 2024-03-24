@@ -13,6 +13,7 @@ public class MeshGenerator : MonoBehaviour
     public int xSize = 30;
     public int zSize = 30;
     public float height = 1;
+    public float repeatingDelay = 0.3f;
 
     // Use this for initialization
     void Start()
@@ -20,8 +21,7 @@ public class MeshGenerator : MonoBehaviour
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
 
-        CreateShape();
-
+        InvokeRepeating("CreateShape", repeatingDelay, repeatingDelay);
     }
 
     void Update () 
