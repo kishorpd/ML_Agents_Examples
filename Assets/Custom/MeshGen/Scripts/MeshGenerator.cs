@@ -46,6 +46,7 @@ public class MeshGenerator : MonoBehaviour
                 i++;
             }
             if(z%2 == 0) heightIncremented+=2;
+            else heightIncremented -= 2;
         }
 
 
