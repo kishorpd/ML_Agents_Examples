@@ -37,16 +37,17 @@ public class MeshGenerator : MonoBehaviour
     {
         vertices = new Vector3[(xSize + 1) * (zSize + 1)];
         heightIncremented = height;
+        float stairHeight = 0;
         for (int i = 0, z = 0; z <= zSize; z++)
         {
+            stairHeight = (z % 2 == 0) ? z : z - 1;
             for (int x = 0; x <= xSize; x++)
             {
                 //vertices[i] = new Vector3(x, Random.Range(height,-height), z);
-                vertices[i] = new Vector3(x, heightIncremented, z);
+                vertices[i] = new Vector3(x, heightIncremented, stairHeight);
                 i++;
             }
-            if(z%2 == 0) heightIncremented+=2;
-            else heightIncremented -= 2;
+            if (z % 2 == 0) heightIncremented++;
         }
 
 
