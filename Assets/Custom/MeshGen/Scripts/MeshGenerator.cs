@@ -30,6 +30,7 @@ public class MeshGenerator : MonoBehaviour
         UpdateMesh();
     }
 
+
     /// <summary>
     /// Create shape, in this case a grid
     /// </summary>
@@ -37,17 +38,20 @@ public class MeshGenerator : MonoBehaviour
     {
         vertices = new Vector3[(xSize + 1) * (zSize + 1)];
         heightIncremented = height;
-        float stairHeight = 0;
+        int stairWidth = 0;
         for (int i = 0, z = 0; z <= zSize; z++)
         {
-            stairHeight = (z % 2 == 0) ? z : z - 1;
+            stairWidth= (z % 2 == 0) ? z : z - 1;
             for (int x = 0; x <= xSize; x++)
             {
-                //vertices[i] = new Vector3(x, Random.Range(height,-height), z);
-                vertices[i] = new Vector3(x, heightIncremented, stairHeight);
+                vertices[i] = new Vector3(x, heightIncremented, stairWidth);
                 i++;
             }
-            if (z % 2 == 0) heightIncremented++;
+            if(z % 2 == 0)
+            {
+                //stairWidth++;
+                heightIncremented++;
+            }
         }
 
 
