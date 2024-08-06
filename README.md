@@ -1,10 +1,21 @@
 # ML_Agents_Examples
 
-A blank project was created using Unity 2022.3.15f1. You can create the project using any latest LTS Unity version.
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/eigJgelag18/0.jpg)](https://www.youtube.com/watch?v=eigJgelag18)
 
-There are 2 ways to get this up and running. I would recommend the minimal intallation steps route.
-
-[Minimal Installation steps](./Help/Documentation/1.MinimalStepsInstallation.md)
+The current project offers the above template[video].
 
 
-[Complete installation steps](./Help/Documentation/0.InstallationSteps.md)
+
+Here are the steps to get started:
+
+This project was started via a blank Unity3D project created using Unity 2022.3.15f1.
+
+You can use any recent LTS version of Unity to create the project.
+
+There are two ways to set this up. I recommend following the minimal installation steps.
+
+**[Minimal Installation Steps](./Help/Documentation/1.MinimalStepsInstallation.md)**
+
+> The above minimal steps are the recommended approach. If you encounter issues or want to explore additional options, you can refer to the complete installation steps. <br><br> **[Complete Installation Steps](./Help/Documentation/0.InstallationSteps.md)**
+
+
